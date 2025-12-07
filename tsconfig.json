@@ -19,7 +19,24 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/shadcn/*": [
+        "./components/ui/*"
+      ],
+      "@/components/*": [
+        "./components/*"
+      ],
+      "@/lib/*": [
+        "./lib/*"
+      ],
+      "@/context/*": [
+        "./context/*"
+      ],
+      "@/constants/*": [
+        "./constants/*"
+      ],
+      "@/*": [
+        "./app/*"
+      ]
     }
   },
   "include": [
