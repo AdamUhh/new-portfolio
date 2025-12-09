@@ -6,7 +6,7 @@ import { DesktopItems } from "@/components/OpenVSCode";
 import { Taskbar } from "@/components/Taskbar";
 import { WindowContainer } from "@/components/Window/WindowContainer";
 
-import { getAllApps, getAppDefinition } from "@/lib/registry";
+import { getAllApps, getApp } from "@/lib/registry";
 
 type Props = {
     params: Promise<{ appId: string }>;
@@ -15,7 +15,7 @@ type Props = {
 // Generate metadata for each app
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { appId } = await params;
-    const app = getAppDefinition(appId);
+    const app = getApp(appId);
 
     if (!app) {
         return {
@@ -32,7 +32,7 @@ export async function generateStaticParams() {
     const apps = getAllApps();
 
     return apps
-        .filter((app) => app.route && app.affectsUrl)
+        .filter((app) => app.hasRoute)
         .map((app) => ({
             appId: app.id,
         }));
@@ -53,7 +53,7 @@ function BackgroundWallpaper() {
 
 export default async function Home({ params }: Props) {
     const { appId } = await params;
-    const app = getAppDefinition(appId);
+    const app = getApp(appId);
 
     // If app doesn't exist, show 404
     if (!app) {

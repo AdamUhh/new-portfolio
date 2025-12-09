@@ -1,7 +1,8 @@
 "use client";
 
+import { useWindowManager } from "@/context/window";
+
 import { Window } from "./Window";
-import { useWindowManager } from "./windowManager";
 
 export function WindowContainer() {
     const { windows } = useWindowManager();

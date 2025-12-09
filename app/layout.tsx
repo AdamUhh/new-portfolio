@@ -1,4 +1,4 @@
-import HolyLoader from "holy-loader";
+// import HolyLoader from "holy-loader";
 import type { Metadata } from "next";
 import {
     Albert_Sans,
@@ -83,7 +83,7 @@ export default function RootLayout({
             <body
                 className={`${albertSans.variable} ${inter.variable} ${grotesk.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
             >
-                <HolyLoader showSpinner={false} />
+                {/* <HolyLoader showSpinner={false} /> */}
                 <WindowProvider>{children}</WindowProvider>
             </body>
         </html>

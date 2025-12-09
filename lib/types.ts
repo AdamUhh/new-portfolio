@@ -1,33 +1,41 @@
-import { APP_REGISTRY_NAMES_TYPE } from "./registry";
+import { LucideProps } from "lucide-react";
 
 export interface WindowMetadata {
     id: string;
-    appId: APP_REGISTRY_NAMES_TYPE;
-    title: string;
-    isOpen: boolean;
+    appId: string;
     isFocused: boolean;
     isMinimized: boolean;
     isExpanded: boolean;
     zIndex: number;
     position: { x: number; y: number };
     size: { width: number; height: number };
-    taskbarPosition?: number; // For animation origin
 }
 
 export interface AppDefinition {
-    id: APP_REGISTRY_NAMES_TYPE;
+    id: string;
     title: string;
-    icon: string;
-    component: React.ComponentType<WindowComponentProps>;
-    defaultSize?: { width: number; height: number };
-    route?: string; // e.g., "/about", "/calculator"
-    affectsUrl?: boolean; // If false, doesn't change URL (for Settings, modals)
-    allowMultiple?: boolean; // If true, can open multiple instances
+    defaultSize: { width: number; height: number };
+    component: React.ComponentType<WindowProps>;
+    titlebarIcon?: string;
+    appIcon?: React.ComponentType<LucideProps> | string;
+    isMdiIcon?: boolean;
+    allowMultiple?: boolean; // If false, only one instance can be open
+    isRoute?: boolean; // If true, acts as actual /route, else, /?app=route
 }
 
-export interface WindowComponentProps {
+export interface WindowProps {
     windowId: string;
     onClose: () => void;
-    onMinimize: () => void;
-    onExpand: () => void;
+}
+
+export interface WindowManagerContextType {
+    windows: WindowMetadata[];
+    openWindow: (appId: string) => void;
+    closeWindow: (windowId: string) => void;
+    focusWindow: (windowId: string) => void;
+    minimizeWindow: (windowId: string) => void;
+    toggleWindow: (windowId: string) => void;
+    toggleExpand: (windowId: string) => void;
+    updatePosition: (windowId: string, x: number, y: number) => void;
+    updateSize: (windowId: string, width: number, height: number) => void;
 }

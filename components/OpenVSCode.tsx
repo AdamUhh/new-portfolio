@@ -2,54 +2,100 @@
 
 import {
     mdiBadgeAccount,
+    mdiCog,
     mdiConsole,
     mdiEmailEdit,
     mdiGithub,
     mdiHumanGreeting,
-    mdiLoading,
 } from "@mdi/js";
 import Icon from "@mdi/react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
 
-import { getAppByRoute, getAppDefinition } from "@/lib/registry";
+import { APP_REGISTRY_NAMES, getApp } from "@/lib/registry";
+import { WindowMetadata } from "@/lib/types";
+import { cn } from "@/lib/utils";
 
-import { useWindowManager } from "./Window/windowManager";
+import { useWindowManager } from "@/context/window";
+
 import { VSCodeIcon } from "./svg/vscode";
 import { Button } from "./ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 
-function VSCodeLoading() {
-    return (
-        <div className="fixed top-1/2 left-1/2 z-10 flex min-h-[250px] min-w-[400px] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center space-y-10 rounded bg-[#2F2F2F] shadow-md">
-            <VSCodeIcon className="size-24" />
-            <div className="flex items-center justify-center gap-4 text-background">
-                <span>Loading</span>
-                <Icon
-                    path={mdiLoading}
-                    size={1}
-                    color={"#fff"}
-                    className="animate-spin"
-                />
-            </div>
-        </div>
-    );
-}
+// function VSCodeLoading() {
+//     return (
+//         <div className="fixed top-1/2 left-1/2 z-10 flex min-h-[250px] min-w-[400px] -translate-x-1/2 -translate-y-1/2 flex-col items-center justify-center space-y-10 rounded bg-[#2F2F2F] shadow-md">
+//             <VSCodeIcon className="size-24" />
+//             <div className="flex items-center justify-center gap-4 text-background">
+//                 <span>Loading</span>
+//                 <Icon
+//                     path={mdiLoading}
+//                     size={1}
+//                     color={"#fff"}
+//                     className="animate-spin"
+//                 />
+//             </div>
+//         </div>
+//     );
+// }
 
-export function TaskbarVSCode() {
-    const { handleAppClick } = useWindowManager();
+export function TaskbarItem({ win }: { win: WindowMetadata }) {
+    const { toggleWindow } = useWindowManager();
 
-    const VSCodeApp = getAppDefinition("about");
+    const app = getApp(win.appId);
 
     return (
         <>
             <Tooltip>
                 <TooltipTrigger asChild>
                     <Button
-                        className="relative mx-auto h-auto w-fit rounded-none bg-accent p-2 after:absolute after:bottom-0 after:h-[3px] after:w-full after:content-normal after:bg-blue-600 hover:bg-accent/70"
+                        className={cn(
+                            "relative mx-auto h-auto w-fit rounded-none p-2 transition-none after:absolute after:bottom-0 after:h-[3px] after:w-full after:content-normal after:bg-transparent hover:bg-accent/70",
+                            win.isFocused ? "bg-accent after:bg-blue-600" : ""
+                        )}
                         variant="ghost"
-                        onMouseUp={() => handleAppClick(VSCodeApp.id)}
+                        onMouseUp={() => toggleWindow(win.id)}
+                    >
+                        {app?.appIcon ? (
+                            app.isMdiIcon ? (
+                                <Icon
+                                    path={app.appIcon as string}
+                                    className="size-7"
+                                />
+                            ) : (
+                                <app.appIcon className="size-7" />
+                            )
+                        ) : (
+                            <VSCodeIcon className="size-7" />
+                        )}
+                    </Button>
+                </TooltipTrigger>
+                <TooltipContent className="dark">
+                    <p>{app.title}</p>
+                </TooltipContent>
+            </Tooltip>
+        </>
+    );
+}
+
+export function TaskbarVSCode({ win }: { win: WindowMetadata | undefined }) {
+    const { openWindow, toggleWindow } = useWindowManager();
+
+    const handleWindow = () => {
+        if (!win) openWindow(APP_REGISTRY_NAMES.about);
+        else toggleWindow(win.id);
+    };
+
+    return (
+        <>
+            <Tooltip>
+                <TooltipTrigger asChild>
+                    <Button
+                        className={cn(
+                            "relative mx-auto h-auto w-fit rounded-none p-2 transition-none after:absolute after:bottom-0 after:h-[3px] after:w-full after:content-normal after:bg-transparent hover:bg-accent/70",
+                            win?.isFocused ? "bg-accent after:bg-blue-600" : ""
+                        )}
+                        variant="ghost"
+                        onMouseUp={handleWindow}
                     >
                         <VSCodeIcon className="size-7" />
                     </Button>
@@ -63,45 +109,19 @@ export function TaskbarVSCode() {
 }
 
 export function DesktopItems() {
-    const [isVSCodeOpen, setIsVSCodeOpen] = useState(false);
-
-    const pathname = usePathname();
-    const { openWindow, windows } = useWindowManager();
-
-    // Sync URL to window state
-    useEffect(() => {
-        if (pathname === "/") return;
-
-        const app = getAppByRoute(pathname);
-        if (app) {
-            // Check if window is already open
-            const existingWindow = windows.find(
-                (w) => w.appId === app.id && w.isOpen
-            );
-            if (!existingWindow) {
-                openWindow(app.id);
-            }
-        }
-    }, [pathname, openWindow, windows]);
-
-    const handleVSCodeClick = () => {
-        setIsVSCodeOpen(true);
-    };
+    const { openWindow } = useWindowManager();
 
     return (
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-2">
             <Tooltip>
                 <TooltipTrigger asChild>
                     <Button
                         className="aspect-square h-24 flex-col rounded text-background hover:bg-accent/70"
                         variant="ghost"
-                        onMouseUp={handleVSCodeClick}
-                        asChild
+                        onMouseUp={() => openWindow(APP_REGISTRY_NAMES.about)}
                     >
-                        <Link href={"/about"}>
-                            <VSCodeIcon className="size-8" />
-                            Portfolio
-                        </Link>
+                        <VSCodeIcon className="size-8" />
+                        Portfolio
                     </Button>
                 </TooltipTrigger>
                 <TooltipContent className="dark">
@@ -131,6 +151,9 @@ export function DesktopItems() {
                     <Button
                         className="aspect-square h-24 flex-col rounded text-background hover:bg-accent/70"
                         variant="ghost"
+                        onMouseUp={() =>
+                            openWindow(APP_REGISTRY_NAMES.settings)
+                        }
                     >
                         <Icon path={mdiConsole} className="size-10" />
                         Terminal
@@ -164,13 +187,29 @@ export function DesktopItems() {
                     <Button
                         className="aspect-square h-24 flex-col rounded text-background hover:bg-accent/70"
                         variant="ghost"
-                        onMouseUp={handleVSCodeClick}
-                        asChild
+                        onMouseUp={() =>
+                            openWindow(APP_REGISTRY_NAMES.settings)
+                        }
                     >
-                        <Link href={"/contact"}>
-                            <Icon path={mdiEmailEdit} className="size-10" />
-                            Contact
-                        </Link>
+                        <Icon path={mdiCog} className="size-10" />
+                        Settings
+                    </Button>
+                </TooltipTrigger>
+                <TooltipContent className="dark">
+                    <p>Open Settings</p>
+                </TooltipContent>
+            </Tooltip>
+            <Tooltip>
+                <TooltipTrigger asChild>
+                    <Button
+                        className="aspect-square h-24 flex-col rounded text-background hover:bg-accent/70"
+                        variant="ghost"
+                        onMouseUp={() =>
+                            openWindow(APP_REGISTRY_NAMES.settings)
+                        }
+                    >
+                        <Icon path={mdiEmailEdit} className="size-10" />
+                        Contact
                     </Button>
                 </TooltipTrigger>
                 <TooltipContent className="dark">
@@ -192,7 +231,7 @@ export function DesktopItems() {
                 </TooltipContent>
             </Tooltip>
 
-            {isVSCodeOpen && <VSCodeLoading />}
+            {/* {isVSCodeOpen && <VSCodeLoading />} */}
         </div>
     );
 }

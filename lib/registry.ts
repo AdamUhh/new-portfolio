@@ -1,84 +1,41 @@
-import AboutApp from "@/components/About";
+import { mdiCog } from "@mdi/js";
+import { CogIcon } from "lucide-react";
 
-// import CalculatorApp from "../apps/CalculatorApp";
-// import SettingsApp from "../apps/SettingsApp";
+import { AboutWindow, SettingsWindow } from "@/components/About";
+
 import { AppDefinition } from "./types";
-
-export type APP_REGISTRY_NAMES_TYPE = string;
-// export type APP_REGISTRY_NAMES_TYPE = keyof typeof APP_REGISTRY_NAMES;
 
 export const APP_REGISTRY_NAMES = {
     about: "about",
+    projects: "projects",
+    contact: "contact",
+    terminal: "terminal",
+    settings: "settings",
+    help: "help",
 } as const;
 
-/**
- * Static registry of all apps.
- * NOT stored in React state - just imported where needed.
- * To add a new app: just add it here, no other changes needed.
- */
-export const APP_REGISTRY: Record<APP_REGISTRY_NAMES_TYPE, AppDefinition> = {
-    about: {
-        id: "about",
+export const APP_REGISTRY: Record<string, AppDefinition> = {
+    [APP_REGISTRY_NAMES.about]: {
+        id: APP_REGISTRY_NAMES.about,
         title: "About",
-        icon: "📄",
-        component: AboutApp,
-        route: "/about",
-        affectsUrl: true,
+        titlebarIcon: "📄",
+        component: AboutWindow,
+        isRoute: true,
         defaultSize: { width: 500, height: 400 },
     },
-    // calculator: {
-    //     id: "calculator",
-    //     title: "Calculator",
-    //     icon: "🔢",
-    //     component: CalculatorApp,
-    //     route: "/calculator",
-    //     affectsUrl: true,
-    //     defaultSize: { width: 320, height: 480 },
-    // },
-    // settings: {
-    //     id: "settings",
-    //     title: "Settings",
-    //     icon: "⚙️",
-    //     component: SettingsApp,
-    //     affectsUrl: false, // Settings doesn't change URL - it's a modal/overlay
-    //     defaultSize: { width: 600, height: 500 },
-    // },
-    // notepad: {
-    //     id: "notepad",
-    //     title: "Notepad",
-    //     icon: "📝",
-    //     component: AboutApp, // Replace with actual component
-    //     route: "/notepad",
-    //     affectsUrl: true,
-    //     allowMultiple: true, // Can open multiple notepad instances
-    //     defaultSize: { width: 600, height: 400 },
-    // },
-};
+    [APP_REGISTRY_NAMES.settings]: {
+        id: APP_REGISTRY_NAMES.settings,
+        title: "Settings",
+        titlebarIcon: "⚙️",
+        component: SettingsWindow,
+        appIcon: mdiCog,
+        isMdiIcon: true,
+        defaultSize: { width: 600, height: 500 },
+    },
+} as const;
 
-/**
- * Get app definition by ID
- */
-export function getAppDefinition(
-    appId: APP_REGISTRY_NAMES_TYPE
-): AppDefinition {
-    return APP_REGISTRY[appId];
-}
+export type AppId =
+    (typeof APP_REGISTRY_NAMES)[keyof typeof APP_REGISTRY_NAMES];
 
-/**
- * Get app definition by route
- */
-export function getAppByRoute(pathname: string): AppDefinition | undefined {
-    // Extract appId from pathname: "/about" -> "about"
-    const appId = pathname.replace(/^\//, "").split("/")[0];
-    const app = APP_REGISTRY[appId];
-
-    // Only return if it's a routable app
-    return app?.affectsUrl ? app : undefined;
-}
-
-/**
- * Get all apps (for taskbar, app launcher, etc.)
- */
-export function getAllApps(): AppDefinition[] {
-    return Object.values(APP_REGISTRY);
-}
+export const getApp = (appId: string) => APP_REGISTRY[appId as AppId];
+export const getAllApps = () => Object.values(APP_REGISTRY);

@@ -10,15 +10,32 @@ import Icon from "@mdi/react";
 import { WifiIcon } from "lucide-react";
 
 import { Clock } from "@/components/Clock";
-import { TaskbarVSCode } from "@/components/OpenVSCode";
+import { TaskbarItem, TaskbarVSCode } from "@/components/OpenVSCode";
+
+import { APP_REGISTRY_NAMES } from "@/lib/registry";
+
+import { useWindowManager } from "@/context/window";
 
 export function Taskbar() {
+    const { windows } = useWindowManager();
+
+    const aboutWindow = windows.filter(
+        (w) => w.appId === APP_REGISTRY_NAMES.about
+    )?.[0];
+
+    const openWindows = windows.filter(
+        (w) => w.appId !== APP_REGISTRY_NAMES.about
+    );
+
     return (
         <footer className="fixed bottom-0 left-0 grid h-11 w-screen grid-cols-3 bg-gray-400">
             <div className="not-tablet:hidden" />
-            <ul className="grid h-full w-full grid-cols-[60px_60px] items-center justify-center">
-                <Icon path={mdiMicrosoft} className="mx-auto size-9" />
-                <TaskbarVSCode />
+            <ul className="mx-auto flex h-full w-fit flex-nowrap items-center justify-center gap-1">
+                <Icon path={mdiMicrosoft} className="size-9" />
+                <TaskbarVSCode win={aboutWindow} />
+                {openWindows.map((win) => (
+                    <TaskbarItem key={win.id} win={win} />
+                ))}
             </ul>
             <ul className="my-auto ml-auto grid h-fit grid-cols-[1fr_1fr_1fr_1fr_100px] items-center gap-4">
                 <Icon path={mdiChevronUp} className="size-4" />
