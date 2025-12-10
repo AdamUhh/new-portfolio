@@ -1,6 +1,12 @@
 "use client";
 
-import { MinusIcon, SquareIcon, XIcon } from "lucide-react";
+import {
+    mdiWindowMaximize,
+    mdiWindowMinimize,
+    mdiWindowRestore,
+} from "@mdi/js";
+import Icon from "@mdi/react";
+import { XIcon } from "lucide-react";
 import React, { memo, useCallback, useMemo, useRef, useState } from "react";
 import Draggable, { DraggableData, DraggableEvent } from "react-draggable";
 
@@ -47,6 +53,10 @@ function WindowBase({ window: w }: WindowComponentProps) {
         [updatePosition, w.id]
     );
 
+    const handleFocus = useCallback(() => {
+        if (!w.isFocused) focusWindow(w.id);
+    }, [focusWindow, w.id, w.isFocused]);
+
     const style = useMemo<React.CSSProperties>(() => {
         const baseStyle: React.CSSProperties = w.isExpanded
             ? {
@@ -54,7 +64,7 @@ function WindowBase({ window: w }: WindowComponentProps) {
                   left: 0,
                   top: 0,
                   width: "100vw",
-                  height: "calc(100vh - 48px)",
+                  height: "calc(100vh - 44px)",
                   zIndex: w.zIndex,
                   transform: "none",
               }
@@ -65,7 +75,9 @@ function WindowBase({ window: w }: WindowComponentProps) {
                   zIndex: w.zIndex,
               };
 
-        if (!isDragging) baseStyle.transition = "all 0.3s ease";
+        if (!isDragging)
+            baseStyle.transition =
+                "transform 0.3s ease, height 0.3s ease, width 0.3s ease";
         return baseStyle;
     }, [w.isExpanded, w.size.width, w.size.height, w.zIndex, isDragging]);
 
@@ -88,59 +100,67 @@ function WindowBase({ window: w }: WindowComponentProps) {
                 ref={nodeRef}
                 style={style}
                 className={cn(
-                    "flex flex-col overflow-hidden rounded-lg border border-gray-300 bg-white shadow-xl",
-                    w.isFocused && "ring-2 ring-blue-500"
+                    "relative flex flex-col overflow-hidden bg-white shadow-xl after:pointer-events-none after:absolute after:inset-0 after:bg-black/10",
+                    w.isFocused && "shadow-black after:bg-transparent",
+                    !w.isExpanded && "rounded-lg"
                 )}
-                onMouseUp={() => focusWindow(w.id)}
             >
-                {/* Titlebar */}
-                <div className="draggable-handle flex cursor-move items-center justify-between bg-linear-to-r from-blue-500 to-blue-600 px-3 py-2 text-white select-none">
-                    <div className="flex items-center gap-2">
-                        {titlebarIcon && <span>{titlebarIcon}</span>}
-                        <span className="text-sm font-semibold">{title}</span>
+                <div
+                    className="flex size-full flex-col"
+                    onMouseUp={handleFocus}
+                >
+                    {/* Titlebar */}
+                    <div className="draggable-handle flex cursor-move items-center justify-between bg-linear-to-r from-blue-500 to-blue-600 px-3 py-2 text-white select-none">
+                        <div className="flex items-center gap-2">
+                            {titlebarIcon && <span>{titlebarIcon}</span>}
+                            <span className="text-sm font-semibold">
+                                {title}
+                            </span>
+                        </div>
+
+                        <div className="flex gap-1">
+                            <Button
+                                onMouseUp={(e) => {
+                                    e.stopPropagation();
+                                    minimizeWindow(w.id);
+                                }}
+                                variant="ghost"
+                                className="size-6 rounded bg-white/20"
+                            >
+                                <Icon path={mdiWindowMinimize} />
+                            </Button>
+
+                            <Button
+                                onMouseUp={(e) => {
+                                    e.stopPropagation();
+                                    toggleExpand(w.id);
+                                }}
+                                variant="ghost"
+                                className="size-6 rounded bg-white/20"
+                            >
+                                {w.isExpanded ? (
+                                    <Icon path={mdiWindowRestore} />
+                                ) : (
+                                    <Icon path={mdiWindowMaximize} />
+                                )}
+                            </Button>
+
+                            <Button
+                                onMouseUp={(e) => {
+                                    e.stopPropagation();
+                                    closeWindow(w.id);
+                                }}
+                                variant="destructive"
+                                className="size-6 rounded bg-red-600"
+                            >
+                                <XIcon className="size-4 stroke-[3.5]" />
+                            </Button>
+                        </div>
                     </div>
 
-                    <div className="flex gap-1">
-                        <Button
-                            onMouseUp={(e) => {
-                                e.stopPropagation();
-                                minimizeWindow(w.id);
-                            }}
-                            variant="ghost"
-                            className="size-6 rounded bg-white/20"
-                        >
-                            <MinusIcon className="size-3 stroke-3" />
-                        </Button>
-
-                        <Button
-                            onMouseUp={(e) => {
-                                e.stopPropagation();
-                                toggleExpand(w.id);
-                            }}
-                            variant="ghost"
-                            className="size-6 rounded bg-white/20"
-                        >
-                            <SquareIcon className="size-2.5 stroke-3" />
-                        </Button>
-
-                        <Button
-                            onMouseUp={(e) => {
-                                e.stopPropagation();
-                                closeWindow(w.id);
-                            }}
-                            variant="destructive"
-                            className="size-6 rounded bg-red-600"
-                        >
-                            <XIcon className="size-3 stroke-3" />
-                        </Button>
+                    <div className="flex-1 overflow-auto bg-gray-50">
+                        <WindowContent windowId={w.id} />
                     </div>
-                </div>
-
-                <div className="flex-1 overflow-auto bg-gray-50 p-4">
-                    <WindowContent
-                        windowId={w.id}
-                        onClose={() => closeWindow(w.id)}
-                    />
                 </div>
             </div>
         </Draggable>

@@ -25,7 +25,6 @@ export interface AppDefinition {
 
 export interface WindowProps {
     windowId: string;
-    onClose: () => void;
 }
 
 export interface WindowManagerContextType {

@@ -1,5 +1,5 @@
 import { FallbackImage } from "@/components/FallbackImage";
-import { DesktopItems } from "@/components/OpenVSCode";
+import { DesktopItems } from "@/components/DesktopItems";
 import { Taskbar } from "@/components/Taskbar";
 import { WindowContainer } from "@/components/Window/WindowContainer";
 
@@ -19,7 +19,7 @@ function BackgroundWallpaper() {
 export default function Home() {
     return (
         <div className="relative flex min-h-screen font-albert-sans font-medium">
-            <main className="flex h-full w-full">
+            <main className="flex h-full w-full overflow-hidden">
                 <BackgroundWallpaper />
                 <DesktopItems />
                 <WindowContainer />

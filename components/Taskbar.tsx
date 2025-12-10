@@ -9,12 +9,89 @@ import {
 import Icon from "@mdi/react";
 import { WifiIcon } from "lucide-react";
 
-import { Clock } from "@/components/Clock";
-import { TaskbarItem, TaskbarVSCode } from "@/components/OpenVSCode";
+import { Button } from "@/shadcn/button";
 
-import { APP_REGISTRY_NAMES } from "@/lib/registry";
+import { Clock } from "@/components/Clock";
+import { VSCodeIcon } from "@/components/svg/vscode";
+
+import { getApp } from "@/lib/registry";
+import { APP_REGISTRY_NAMES } from "@/lib/registry-constants";
+import { WindowMetadata } from "@/lib/types";
+import { cn } from "@/lib/utils";
 
 import { useWindowManager } from "@/context/window";
+
+import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
+
+function TaskbarVSCode({ win }: { win: WindowMetadata | undefined }) {
+    const { openWindow, toggleWindow } = useWindowManager();
+
+    const handleWindow = () => {
+        if (!win) openWindow(APP_REGISTRY_NAMES.about);
+        else toggleWindow(win.id);
+    };
+
+    return (
+        <>
+            <Tooltip>
+                <TooltipTrigger asChild>
+                    <Button
+                        className={cn(
+                            "relative mx-auto h-auto w-fit rounded-none p-2 transition-none after:absolute after:bottom-0 after:h-[3px] after:w-full after:content-normal after:bg-transparent hover:bg-accent/70",
+                            win?.isFocused ? "bg-accent after:bg-blue-600" : ""
+                        )}
+                        variant="ghost"
+                        onMouseUp={handleWindow}
+                    >
+                        <VSCodeIcon className="size-7" />
+                    </Button>
+                </TooltipTrigger>
+                <TooltipContent className="dark">
+                    <p>Open Portfolio</p>
+                </TooltipContent>
+            </Tooltip>
+        </>
+    );
+}
+
+function TaskbarItem({ win }: { win: WindowMetadata }) {
+    const { toggleWindow } = useWindowManager();
+
+    const app = getApp(win.appId);
+
+    return (
+        <>
+            <Tooltip>
+                <TooltipTrigger asChild>
+                    <Button
+                        className={cn(
+                            "relative mx-auto h-auto w-fit rounded-none p-2 transition-none after:absolute after:bottom-0 after:h-[3px] after:w-full after:content-normal after:bg-transparent hover:bg-accent/70",
+                            win.isFocused ? "bg-accent after:bg-blue-600" : ""
+                        )}
+                        variant="ghost"
+                        onMouseUp={() => toggleWindow(win.id)}
+                    >
+                        {app?.appIcon ? (
+                            app.isMdiIcon ? (
+                                <Icon
+                                    path={app.appIcon as string}
+                                    className="size-7"
+                                />
+                            ) : (
+                                <app.appIcon className="size-7" />
+                            )
+                        ) : (
+                            <VSCodeIcon className="size-7" />
+                        )}
+                    </Button>
+                </TooltipTrigger>
+                <TooltipContent className="dark">
+                    <p>{app.title}</p>
+                </TooltipContent>
+            </Tooltip>
+        </>
+    );
+}
 
 export function Taskbar() {
     const { windows } = useWindowManager();

@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
+import { DesktopItems } from "@/components/DesktopItems";
 import { FallbackImage } from "@/components/FallbackImage";
-import { DesktopItems } from "@/components/OpenVSCode";
 import { Taskbar } from "@/components/Taskbar";
 import { WindowContainer } from "@/components/Window/WindowContainer";
 
@@ -32,7 +32,7 @@ export async function generateStaticParams() {
     const apps = getAllApps();
 
     return apps
-        .filter((app) => app.hasRoute)
+        .filter((app) => app.isRoute)
         .map((app) => ({
             appId: app.id,
         }));

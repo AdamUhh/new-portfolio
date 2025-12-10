@@ -97,10 +97,10 @@ export function WindowProvider({ children }: { children: React.ReactNode }) {
             if (newWindows.length > 0) {
                 newWindows[newWindows.length - 1].isFocused = true;
             }
-            console.debug(newWindows);
 
             return newWindows;
         });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // Update URL based on open windows with routes and query params
@@ -239,6 +239,8 @@ export function WindowProvider({ children }: { children: React.ReactNode }) {
     );
 
     const focusWindow = useCallback((windowId: string) => {
+        // NOTE: Issue where, every click on a window will trigger
+        // Need to ensure window checks if !w.isFocused
         setWindows((prev) =>
             prev.map((w) => ({
                 ...w,
@@ -306,7 +308,13 @@ export function WindowProvider({ children }: { children: React.ReactNode }) {
     const toggleExpand = useCallback((windowId: string) => {
         setWindows((prev) =>
             prev.map((w) =>
-                w.id === windowId ? { ...w, isExpanded: !w.isExpanded } : w
+                w.id === windowId
+                    ? {
+                          ...w,
+                          isExpanded: !w.isExpanded,
+                          zIndex: nextZIndex.current++,
+                      }
+                    : w
             )
         );
     }, []);
