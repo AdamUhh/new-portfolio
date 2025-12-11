@@ -1,5 +1,5 @@
-import { FallbackImage } from "@/components/FallbackImage";
 import { DesktopItems } from "@/components/DesktopItems";
+import { FallbackImage } from "@/components/FallbackImage";
 import { Taskbar } from "@/components/Taskbar";
 import { WindowContainer } from "@/components/Window/WindowContainer";
 

@@ -3,6 +3,5 @@ export const APP_REGISTRY_NAMES = {
     projects: "projects",
     contact: "contact",
     terminal: "terminal",
-    settings: "settings",
     help: "help",
 } as const;

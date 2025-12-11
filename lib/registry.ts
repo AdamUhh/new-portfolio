@@ -1,8 +1,16 @@
-import { mdiCog } from "@mdi/js";
+import {
+    mdiBriefcase,
+    mdiConsole,
+    mdiEmailEdit,
+    mdiHumanGreeting,
+} from "@mdi/js";
 import { LucideProps } from "lucide-react";
 
 import { AboutWindow } from "@/components/About";
-import { SettingsWindow } from "@/components/Settings";
+import { ContactWindow } from "@/components/Contact";
+import { NeedHelpWindow } from "@/components/Help";
+import { ProjectsWindow } from "@/components/Projects";
+import { TerminalWindow } from "@/components/Terminal";
 import { VSCodeIcon } from "@/components/svg/vscode";
 
 import { APP_REGISTRY_NAMES } from "./registry-constants";
@@ -17,13 +25,44 @@ export const APP_REGISTRY: Record<string, AppDefinition> = {
         isRoute: true,
         defaultSize: { width: 900, height: 800 },
     },
-    [APP_REGISTRY_NAMES.settings]: {
-        id: APP_REGISTRY_NAMES.settings,
-        title: "Settings",
-        titlebarIcon: mdiCog,
+    [APP_REGISTRY_NAMES.terminal]: {
+        id: APP_REGISTRY_NAMES.terminal,
+        title: "Bash",
+        titlebarIcon: mdiConsole,
         isTitleMdiIcon: true,
-        component: SettingsWindow,
-        appIcon: mdiCog,
+        component: TerminalWindow,
+        appIcon: mdiConsole,
+        isAppMdiIcon: true,
+        defaultSize: { width: 600, height: 500 },
+    },
+
+    [APP_REGISTRY_NAMES.projects]: {
+        id: APP_REGISTRY_NAMES.contact,
+        title: "My Projects",
+        titlebarIcon: mdiBriefcase,
+        isTitleMdiIcon: true,
+        component: ProjectsWindow,
+        appIcon: mdiBriefcase,
+        isAppMdiIcon: true,
+        defaultSize: { width: 600, height: 500 },
+    },
+    [APP_REGISTRY_NAMES.contact]: {
+        id: APP_REGISTRY_NAMES.contact,
+        title: "Contact Me",
+        titlebarIcon: mdiEmailEdit,
+        isTitleMdiIcon: true,
+        component: ContactWindow,
+        appIcon: mdiEmailEdit,
+        isAppMdiIcon: true,
+        defaultSize: { width: 600, height: 500 },
+    },
+    [APP_REGISTRY_NAMES.help]: {
+        id: APP_REGISTRY_NAMES.help,
+        title: "This is a joke!",
+        titlebarIcon: mdiHumanGreeting,
+        isTitleMdiIcon: true,
+        component: NeedHelpWindow,
+        appIcon: mdiHumanGreeting,
         isAppMdiIcon: true,
         defaultSize: { width: 600, height: 500 },
     },

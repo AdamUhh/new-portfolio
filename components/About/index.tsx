@@ -407,24 +407,24 @@ function ExplorerBar() {
                     }
                     setExplorerTab={setExplorerTab}
                 />
-                <SidebarInset className="m-0! overflow-hidden bg-[#1e1e1e]">
-                    <div className="flex flex-col overflow-hidden bg-[#1e1e1e] text-white">
+                <SidebarInset className="m-0! overflow-hidden rounded-none! bg-[#1e1e1e]">
+                    <div className="flex flex-col overflow-hidden rounded-none bg-[#1e1e1e] text-white">
                         <Tabs
                             value={explorerTab}
                             onValueChange={setExplorerTab as () => string}
                             className="overflow-hidden rounded-none"
                         >
-                            <TabsList className="w-full justify-start rounded-none bg-[#252526] p-0">
+                            <TabsList className="h-fit w-full justify-start rounded-none bg-[#252526] p-0">
                                 <div className="relative">
                                     <TabsTrigger
-                                        className="h-full flex-0 justify-start rounded-none border-none bg-[#2d2d2d] pr-8 pl-5 text-white/70 hover:bg-accent/10 data-[state=active]:bg-[#1e1e1e] data-[state=active]:text-white"
+                                        className="h-full flex-0 justify-start rounded-none border-none bg-[#2d2d2d] pr-8 pl-2 text-white/70 hover:bg-accent/10 data-[state=active]:bg-[#1e1e1e] data-[state=active]:text-white"
                                         value="about"
                                     >
                                         <Icon
                                             path={getIconFromFileExt(".html")}
                                             color={getColorFromFileExt(".html")}
                                         />
-                                        About.html
+                                        about.html
                                     </TabsTrigger>
 
                                     <TabsTrigger
@@ -440,7 +440,7 @@ function ExplorerBar() {
 
                                 <div className="relative">
                                     <TabsTrigger
-                                        className="h-full flex-0 justify-start rounded-none border-none bg-[#2d2d2d] pr-8 pl-5 text-white/70 hover:bg-accent/10 data-[state=active]:bg-[#1e1e1e] data-[state=active]:text-white"
+                                        className="h-full flex-0 justify-start rounded-none border-none bg-[#2d2d2d] pr-8 pl-2 text-white/70 hover:bg-accent/10 data-[state=active]:bg-[#1e1e1e] data-[state=active]:text-white"
                                         value="experience"
                                         id="open-experience"
                                     >
@@ -448,7 +448,7 @@ function ExplorerBar() {
                                             path={getIconFromFileExt(".ts")}
                                             color={getColorFromFileExt(".ts")}
                                         />
-                                        Experience.ts
+                                        experience.ts
                                     </TabsTrigger>
 
                                     <TabsTrigger
@@ -759,7 +759,7 @@ function Education() {
                 <div>
                     <h4 className="flex justify-between gap-4 text-xl">
                         Google
-                        <span className="text-base text-accent/80">2024</span>
+                        <span className="text-sm text-accent/80">2024</span>
                     </h4>
                     <p className="text-accent/80">
                         Google Cybersecurity Certificate
@@ -769,7 +769,7 @@ function Education() {
                 <div>
                     <h4 className="flex justify-between gap-4 text-xl">
                         University of the People
-                        <span className="text-base text-accent/80">
+                        <span className="text-sm text-accent/80">
                             2020 - 2024
                         </span>
                     </h4>
@@ -791,7 +791,7 @@ function Projects() {
                 Now that you&apos;ve seen my skills, check out my{" "}
                 <Button
                     variant="secondary"
-                    className="rounded"
+                    className="ml-1 h-7 rounded bg-[#2b7ccc] px-2 text-accent hover:bg-[#2b7ccc]/90"
                     onMouseUp={() => openWindow(APP_REGISTRY_NAMES.projects)}
                 >
                     Projects
@@ -802,10 +802,108 @@ function Projects() {
 }
 function Experience() {
     return (
-        <div className="space-y-4">
-            <div>
-                <h2 className="text-3xl">Experience</h2>
-                <p className="text-accent/70"></p>
+        <div>
+            <h3 className="text-3xl">Experience</h3>
+            <div className="flex max-w-[600px] flex-col gap-4 text-accent/95">
+                <div>
+                    <h4 className="flex justify-between gap-4 text-xl">
+                        MC3K
+                        <span className="text-sm text-accent/80">
+                            2022 - Present
+                        </span>
+                    </h4>
+                    <p className="text-sm text-accent/90">
+                        Full Stack Developer
+                    </p>
+                    <ul className="list-inside list-disc text-accent/70">
+                        <li>
+                            <span className="text-accent">
+                                Built an e-commerce platform
+                            </span>{" "}
+                            with a tailored headless CMS
+                        </li>
+                        <li>
+                            Created dynamic{" "}
+                            <span className="text-accent">dashboards</span> for
+                            blogs
+                        </li>
+                        <li>
+                            Developed{" "}
+                            <span className="text-accent">inventory</span>{" "}
+                            management with bulk edits and filters
+                        </li>
+                        <li>
+                            Implemented complete{" "}
+                            <span className="text-accent">
+                                product management
+                            </span>
+                        </li>
+                        <li>Content creation for Instagram</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 className="flex justify-between gap-4 text-xl">
+                        Capting Creative Agency
+                        <span className="text-sm text-accent/80">
+                            2023 - 2025
+                        </span>
+                    </h4>
+                    <p className="text-sm text-accent/90">
+                        Lead Backend Developer
+                    </p>
+                    <ul className="list-inside list-disc text-accent/80">
+                        <li>
+                            Led development of{" "}
+                            <span className="text-accent">
+                                multi-industry platforms
+                            </span>
+                        </li>
+                        <li>
+                            Built role-based{" "}
+                            <span className="text-accent">fitness system</span>{" "}
+                            with user, coach, and admin{" "}
+                            <span className="text-accent">dashboards</span>{" "}
+                            (booking, session management, finance tools)
+                        </li>
+                        <li>
+                            Created an{" "}
+                            <span className="text-accent">events site</span> for
+                            entertainment client
+                        </li>
+                        <li>
+                            Developed CMS-driven{" "}
+                            <span className="text-accent">
+                                education portal
+                            </span>{" "}
+                            with media and interactive tools
+                        </li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 className="flex justify-between gap-4 text-xl">
+                        Modern Engine
+                        <span className="text-sm text-accent/80">
+                            2019 - 2021
+                        </span>
+                    </h4>
+                    <p className="text-sm text-accent/90">
+                        Operations Executive
+                    </p>
+                    <ul className="list-inside list-disc text-accent/80">
+                        <li>
+                            Established and maintained an{" "}
+                            <span className="text-accent">
+                                inventory management system
+                            </span>
+                        </li>
+                        <li>
+                            Assisted in{" "}
+                            <span className="text-accent">
+                                day to day operations
+                            </span>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </div>
     );

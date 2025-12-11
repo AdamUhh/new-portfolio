@@ -11,6 +11,7 @@ import {
 } from "@mdi/js";
 import Icon from "@mdi/react";
 import Link from "next/link";
+import { useState } from "react";
 
 import { APP_REGISTRY_NAMES } from "@/lib/registry-constants";
 
@@ -37,6 +38,36 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 //     );
 // }
 
+function NeedHelp() {
+    const [hide, setHide] = useState(false);
+    const { openWindow } = useWindowManager();
+
+    const handleHide = () => {
+        openWindow(APP_REGISTRY_NAMES.help);
+        setHide(true);
+    };
+
+    if (hide) return null;
+
+    return (
+        <Tooltip>
+            <TooltipTrigger asChild>
+                <Button
+                    className="aspect-square h-24 flex-col rounded text-background hover:bg-accent/70"
+                    variant="ghost"
+                    onMouseUp={handleHide}
+                >
+                    <Icon path={mdiHumanGreeting} className="size-10" />
+                    Need Help?
+                </Button>
+            </TooltipTrigger>
+            <TooltipContent className="dark">
+                <p>This is a joke</p>
+            </TooltipContent>
+        </Tooltip>
+    );
+}
+
 export function DesktopItems() {
     const { openWindow } = useWindowManager();
 
@@ -50,7 +81,7 @@ export function DesktopItems() {
                         onMouseUp={() => openWindow(APP_REGISTRY_NAMES.about)}
                     >
                         <VSCodeIcon className="size-8" />
-                        About me
+                        About
                     </Button>
                 </TooltipTrigger>
                 <TooltipContent className="dark">
@@ -145,38 +176,7 @@ export function DesktopItems() {
                 </TooltipContent>
             </Tooltip>
 
-            <Tooltip>
-                <TooltipTrigger asChild>
-                    <Button
-                        className="aspect-square h-24 flex-col rounded text-background hover:bg-accent/70"
-                        variant="ghost"
-                        onMouseUp={() =>
-                            openWindow(APP_REGISTRY_NAMES.settings)
-                        }
-                    >
-                        <Icon path={mdiCog} className="size-10" />
-                        Settings
-                    </Button>
-                </TooltipTrigger>
-                <TooltipContent className="dark">
-                    <p>Open Settings</p>
-                </TooltipContent>
-            </Tooltip>
-
-            <Tooltip>
-                <TooltipTrigger asChild>
-                    <Button
-                        className="aspect-square h-24 flex-col rounded text-background hover:bg-accent/70"
-                        variant="ghost"
-                    >
-                        <Icon path={mdiHumanGreeting} className="size-10" />
-                        Need Help?
-                    </Button>
-                </TooltipTrigger>
-                <TooltipContent className="dark">
-                    <p>Confused as to where to go?</p>
-                </TooltipContent>
-            </Tooltip>
+            <NeedHelp />
         </div>
     );
 }
