@@ -72,7 +72,7 @@ function TaskbarItem({ win }: { win: WindowMetadata }) {
                         onMouseUp={() => toggleWindow(win.id)}
                     >
                         {app?.appIcon ? (
-                            app.isMdiIcon ? (
+                            app.isAppMdiIcon ? (
                                 <Icon
                                     path={app.appIcon as string}
                                     className="size-7"

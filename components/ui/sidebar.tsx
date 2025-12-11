@@ -496,7 +496,7 @@ const sidebarMenuButtonVariants = cva(
         variants: {
             variant: {
                 default:
-                    "hover:cursor-pointer hover:bg-accent/10 data-[active=true]:bg-transparent",
+                    "hover:cursor-pointer hover:bg-accent/10! data-[state=open]:bg-transparent data-[state=open]:hover:bg-accent/10 hover:data-[active=true]:bg-accent/10 data-[active=true]:bg-transparent",
                 "default-2":
                     "hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
                 outline:
@@ -669,7 +669,7 @@ function SidebarMenuSub({ className, ...props }: React.ComponentProps<"ul">) {
             data-slot="sidebar-menu-sub"
             data-sidebar="menu-sub"
             className={cn(
-                "mx-3.5 flex min-w-0 translate-x-px flex-col gap-1 border-l border-sidebar-border px-2.5 py-0.5",
+                "mx-3.5 flex min-w-0 translate-x-px flex-col gap-1 border-l border-sidebar-border/10 px-2.5 py-0.5",
                 "group-data-[collapsible=icon]:hidden",
                 className
             )}

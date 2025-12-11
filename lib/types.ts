@@ -16,9 +16,13 @@ export interface AppDefinition {
     title: string;
     defaultSize: { width: number; height: number };
     component: React.ComponentType<WindowProps>;
-    titlebarIcon?: string;
+
+    titlebarIcon?: React.ComponentType<LucideProps> | string;
+    isTitleMdiIcon?: boolean;
+
     appIcon?: React.ComponentType<LucideProps> | string;
-    isMdiIcon?: boolean;
+    isAppMdiIcon?: boolean;
+
     allowMultiple?: boolean; // If false, only one instance can be open
     isRoute?: boolean; // If true, acts as actual /route, else, /?app=route
 }

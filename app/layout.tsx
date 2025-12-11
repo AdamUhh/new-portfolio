@@ -5,6 +5,7 @@ import {
     Geist,
     Geist_Mono,
     Inter,
+    JetBrains_Mono,
     Schibsted_Grotesk,
 } from "next/font/google";
 
@@ -31,6 +32,8 @@ const grotesk = Schibsted_Grotesk({
     variable: "--font-schibsted-grotesk",
     subsets: ["latin"],
 });
+
+const JetBrainsMono = JetBrains_Mono({ variable: "--font-jetbrains-mono" });
 
 const albertSans = Albert_Sans({
     variable: "--font-albert-sans",
@@ -81,7 +84,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body
-                className={`${albertSans.variable} ${inter.variable} ${grotesk.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
+                className={`${albertSans.variable} ${JetBrainsMono.variable} ${inter.variable} ${grotesk.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
             >
                 {/* <HolyLoader showSpinner={false} /> */}
                 <WindowProvider>{children}</WindowProvider>

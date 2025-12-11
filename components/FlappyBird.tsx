@@ -517,7 +517,7 @@ export function TriggerFlappyBird() {
         return (
             <div>
                 <FlappyBird />
-                <p className="mt-2 text-sm text-accent/90 uppercase">
+                <p className="mt-2 text-sm text-accent/90">
                     Tap or press Spacebar to begin
                 </p>
             </div>
@@ -525,7 +525,11 @@ export function TriggerFlappyBird() {
     }
 
     return (
-        <Button onMouseUp={() => setIsPlaying(true)}>
+        <Button
+            className="p-0 text-white"
+            variant="link"
+            onMouseUp={() => setIsPlaying(true)}
+        >
             Click here to play Flappy Bird
         </Button>
     );

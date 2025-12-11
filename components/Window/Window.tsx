@@ -84,7 +84,12 @@ function WindowBase({ window: w }: WindowComponentProps) {
     const app = getApp(w.appId);
     if (!app || w.isMinimized) return null;
 
-    const { component: WindowContent, title, titlebarIcon } = app;
+    const {
+        component: WindowContent,
+        title,
+        titlebarIcon,
+        isTitleMdiIcon,
+    } = app;
 
     return (
         <Draggable
@@ -110,9 +115,16 @@ function WindowBase({ window: w }: WindowComponentProps) {
                     onMouseUp={handleFocus}
                 >
                     {/* Titlebar */}
-                    <div className="draggable-handle flex cursor-move items-center justify-between bg-linear-to-r from-blue-500 to-blue-600 px-3 py-2 text-white select-none">
+                    <div className="draggable-handle flex cursor-move items-center justify-between bg-[#252526] px-3 py-2 text-white select-none">
                         <div className="flex items-center gap-2">
-                            {titlebarIcon && <span>{titlebarIcon}</span>}
+                            {titlebarIcon && isTitleMdiIcon ? (
+                                <Icon path={titlebarIcon as string} />
+                            ) : (
+                                titlebarIcon &&
+                                React.createElement(titlebarIcon, {
+                                    className: "size-5",
+                                })
+                            )}
                             <span className="text-sm font-semibold">
                                 {title}
                             </span>

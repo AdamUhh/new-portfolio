@@ -109,7 +109,7 @@
     --font-inter: var(--font-inter);
     --font-schibsted-grotesk: var(--font-schibsted-grotesk);
     --font-albert-sans: var(--font-albert-sans);
-    --font-mono: var(--font-geist-mono);
+    --font-mono: var(--font-jetbrains-mono);
     --font-geist: var(--font-geist-sans);
     --color-sidebar-ring: var(--sidebar-ring);
     --color-sidebar-border: var(--sidebar-border);
@@ -177,7 +177,7 @@
     --sidebar-primary-foreground: oklch(0.985 0 0);
     --sidebar-accent: oklch(0.97 0 0);
     --sidebar-accent-foreground: oklch(0.205 0 0);
-    --sidebar-border: oklch(0.922 0 0);
+    --sidebar-border: oklch(0.97 0 0);
     --sidebar-ring: oklch(0.708 0 0);
 }
 
