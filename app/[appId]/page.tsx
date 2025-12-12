@@ -62,7 +62,7 @@ export default async function Home({ params }: Props) {
 
     return (
         <div className="relative flex min-h-screen font-albert-sans font-medium">
-            <main className="flex h-full w-full">
+            <main className="flex h-full w-full overflow-hidden">
                 <BackgroundWallpaper />
                 <DesktopItems />
                 <WindowContainer />

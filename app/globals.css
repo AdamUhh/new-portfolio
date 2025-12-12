@@ -222,4 +222,16 @@
     body {
         @apply bg-background text-foreground;
     }
+
+    .react-resizable-handle-e,
+    .react-resizable-handle-w {
+        @apply top-2! m-0! h-[calc(100%-1rem)]! w-1!;
+        transform: rotate(0deg) !important;
+    }
+
+    .react-resizable-handle-n,
+    .react-resizable-handle-s {
+        @apply left-2! m-0! h-1! w-[calc(100%-1rem)]!;
+        transform: rotate(0deg) !important;
+    }
 }

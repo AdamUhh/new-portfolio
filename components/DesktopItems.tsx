@@ -3,7 +3,6 @@
 import {
     mdiBadgeAccount,
     mdiBriefcase,
-    mdiCog,
     mdiConsole,
     mdiEmailEdit,
     mdiGithub,
@@ -53,7 +52,7 @@ function NeedHelp() {
         <Tooltip>
             <TooltipTrigger asChild>
                 <Button
-                    className="aspect-square h-24 flex-col rounded text-background hover:bg-accent/70"
+                    className="aspect-square size-24 flex-col rounded text-background hover:bg-accent/70"
                     variant="ghost"
                     onMouseUp={handleHide}
                 >
@@ -76,7 +75,7 @@ export function DesktopItems() {
             <Tooltip>
                 <TooltipTrigger asChild>
                     <Button
-                        className="aspect-square h-24 flex-col rounded text-background hover:bg-accent/70"
+                        className="aspect-square size-24 flex-col rounded text-background hover:bg-accent/70"
                         variant="ghost"
                         onMouseUp={() => openWindow(APP_REGISTRY_NAMES.about)}
                     >
@@ -92,7 +91,7 @@ export function DesktopItems() {
             <Tooltip>
                 <TooltipTrigger asChild>
                     <Button
-                        className="aspect-square h-24 flex-col rounded text-background hover:bg-accent/70"
+                        className="aspect-square size-24 flex-col rounded text-background hover:bg-accent/70"
                         variant="ghost"
                         onMouseUp={() =>
                             openWindow(APP_REGISTRY_NAMES.projects)
@@ -109,7 +108,7 @@ export function DesktopItems() {
             <Tooltip>
                 <TooltipTrigger asChild>
                     <Button
-                        className="aspect-square h-24 flex-col rounded text-background hover:bg-accent/70"
+                        className="aspect-square size-24 flex-col rounded text-background hover:bg-accent/70"
                         variant="ghost"
                         asChild
                     >
@@ -127,7 +126,7 @@ export function DesktopItems() {
             <Tooltip>
                 <TooltipTrigger asChild>
                     <Button
-                        className="aspect-square h-24 flex-col rounded text-background hover:bg-accent/70"
+                        className="aspect-square size-24 flex-col rounded text-background hover:bg-accent/70"
                         variant="ghost"
                         onMouseUp={() =>
                             openWindow(APP_REGISTRY_NAMES.terminal)
@@ -145,7 +144,7 @@ export function DesktopItems() {
             <Tooltip>
                 <TooltipTrigger asChild>
                     <Button
-                        className="aspect-square h-24 flex-col rounded text-background hover:bg-accent/70"
+                        className="aspect-square size-24 flex-col rounded text-background hover:bg-accent/70"
                         variant="ghost"
                         asChild
                     >
@@ -163,7 +162,7 @@ export function DesktopItems() {
             <Tooltip>
                 <TooltipTrigger asChild>
                     <Button
-                        className="aspect-square h-24 flex-col rounded text-background hover:bg-accent/70"
+                        className="aspect-square size-24 flex-col rounded text-background hover:bg-accent/70"
                         variant="ghost"
                         onMouseUp={() => openWindow(APP_REGISTRY_NAMES.contact)}
                     >

@@ -9,12 +9,10 @@ export function WindowContainer() {
 
     return (
         <div className="pointer-events-none fixed inset-0">
-            <div className="pointer-events-none relative h-full w-full">
-                <div className="pointer-events-auto">
-                    {windows.map((win) => (
-                        <Window key={win.id} window={win} />
-                    ))}
-                </div>
+            <div className="pointer-events-none relative size-full">
+                {windows.map((win) => (
+                    <Window key={win.id} window={win} />
+                ))}
             </div>
         </div>
     );
