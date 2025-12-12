@@ -20,11 +20,11 @@ export function NeedHelpWindow({ windowId }: WindowProps) {
         const fadeTimer = setTimeout(() => {
             setOpacity(0);
             setScale(0.95);
-        }, 2000);
+        }, 2500);
 
         const closeTimer = setTimeout(() => {
             closeWindow(windowId);
-        }, 3000);
+        }, 3500);
 
         return () => {
             clearInterval(countdownInterval);
