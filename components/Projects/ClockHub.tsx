@@ -5,30 +5,9 @@ import { ProjectProps } from "./projects.type";
 
 export function ClockHub({ onBack }: ProjectProps) {
     return (
-        <div className="flex size-full animate-fade-in-up flex-col overflow-hidden bg-[#191919] text-accent">
-            {/* Header */}
-            <div className="border-b border-[#252526] p-4">
-                <Button
-                    onClick={onBack}
-                    variant="ghost"
-                    className="flex items-center gap-2 text-accent/80 transition-colors hover:text-accent"
-                >
-                    <svg
-                        width="20"
-                        height="20"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                    >
-                        <path d="M19 12H5M12 19l-7-7 7-7" />
-                    </svg>
-                    Back
-                </Button>
-            </div>
-
+        <div className="flex size-full flex-col overflow-hidden bg-[#191919] text-accent">
             {/* Content */}
-            <div className="flex-1 overflow-y-auto p-8">
+            <div className="flex-1 animate-fade-in-up overflow-y-auto p-8">
                 <div className="mx-auto max-w-3xl space-y-8">
                     {/* Title */}
                     <div className="space-y-3">

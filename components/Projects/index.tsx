@@ -1,4 +1,16 @@
+"use client";
+
+import { InfoIcon } from "lucide-react";
 import { useState } from "react";
+
+import { Button } from "@/shadcn/button";
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/shadcn/select";
 
 import { WindowProps } from "@/lib/types";
 
@@ -57,24 +69,111 @@ export function ProjectsWindow({ windowId }: WindowProps) {
         selectedIndex !== null ? projects[selectedIndex] : null;
     const ProjectComponent = selectedProject?.component;
 
-    if (ProjectComponent)
-        return <ProjectComponent onBack={() => setSelectedIndex(null)} />;
+    const handleProjectSelect = (value: string) => {
+        const index = projects.findIndex(
+            (p) => p.title.toLowerCase().replace(/\s+/g, "-") === value
+        );
+        if (index !== -1) {
+            setSelectedIndex(index);
+        }
+    };
 
     return (
         <div className="flex size-full flex-col overflow-hidden bg-[#191919] text-accent">
-            <div className="flex flex-[1_1_0] overflow-x-hidden overflow-y-auto">
-                <div className="grid h-fit w-full animate-fade-in-up grid-cols-[repeat(auto-fit,minmax(16rem,20rem))] justify-center gap-4 p-4">
-                    {projects.map((project, index) => (
-                        <ProjectCard
-                            key={project.title}
-                            title={project.title}
-                            description={project.description}
-                            imageSrc={project.imageSrc}
-                            tags={project.tags}
-                            onClick={() => setSelectedIndex(index)}
-                        />
-                    ))}
+            {/* Chrome-style Header */}
+            <div className="flex items-center gap-2 border-b border-[#2d2d2d] bg-[#202124] px-3 py-2">
+                {/* Navigation buttons */}
+                <div className="flex items-center gap-1">
+                    <Button
+                        onClick={() => setSelectedIndex(null)}
+                        disabled={selectedIndex === null}
+                        variant="ghost"
+                        size="sm"
+                        className="h-8 w-8 p-0 text-accent/60 hover:bg-[#2d2d2d] hover:text-accent disabled:opacity-30"
+                    >
+                        <svg
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                        >
+                            <path d="M19 12H5M12 19l-7-7 7-7" />
+                        </svg>
+                    </Button>
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        disabled
+                        className="h-8 w-8 p-0 text-accent/60 hover:bg-[#2d2d2d] hover:text-accent disabled:opacity-30"
+                    >
+                        <svg
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                        >
+                            <path d="M5 12h14M12 5l7 7-7 7" />
+                        </svg>
+                    </Button>
                 </div>
+
+                {/* Address bar / Project selector */}
+                <div className="flex flex-1 items-center gap-2 rounded-md bg-[#2d2d2d] px-4 py-1.5">
+                    <InfoIcon className="size-4 text-accent/60" />
+                    <Select
+                        value={
+                            selectedIndex !== null
+                                ? projects[selectedIndex].title
+                                      .toLowerCase()
+                                      .replace(/\s+/g, "-")
+                                : ""
+                        }
+                        onValueChange={handleProjectSelect}
+                    >
+                        <SelectTrigger className="h-4! flex-1 border-0 bg-transparent p-0 text-sm text-accent/80 shadow-none focus:ring-0!">
+                            <SelectValue placeholder="projects/" />
+                        </SelectTrigger>
+                        <SelectContent position="popper">
+                            {projects.map((project) => (
+                                <SelectItem
+                                    key={project.title}
+                                    value={project.title
+                                        .toLowerCase()
+                                        .replace(/\s+/g, "-")}
+                                >
+                                    projects/
+                                    {project.title
+                                        .toLowerCase()
+                                        .replace(/\s+/g, "-")}
+                                </SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+                </div>
+            </div>
+
+            {/* Content */}
+            <div className="flex flex-[1_1_0] overflow-x-hidden overflow-y-auto">
+                {ProjectComponent ? (
+                    <ProjectComponent onBack={() => setSelectedIndex(null)} />
+                ) : (
+                    <div className="grid h-fit w-full animate-fade-in-up grid-cols-[repeat(auto-fit,minmax(16rem,20rem))] justify-center gap-4 p-4">
+                        {projects.map((project, index) => (
+                            <ProjectCard
+                                key={project.title}
+                                title={project.title}
+                                description={project.description}
+                                imageSrc={project.imageSrc}
+                                tags={project.tags}
+                                onClick={() => setSelectedIndex(index)}
+                            />
+                        ))}
+                    </div>
+                )}
             </div>
         </div>
     );
