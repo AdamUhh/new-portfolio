@@ -11,6 +11,7 @@
     "eslint:src": "npx eslint app/**/*.{ts,tsx}"
   },
   "dependencies": {
+    "@aws-sdk/client-ses": "^3.952.0",
     "@hookform/resolvers": "^5.2.2",
     "@mdi/js": "^7.4.47",
     "@mdi/react": "^1.6.1",

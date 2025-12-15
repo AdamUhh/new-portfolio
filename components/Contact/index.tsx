@@ -1,12 +1,19 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { CheckIcon, CopyIcon, Github, UserIcon } from "lucide-react";
+import {
+    CheckIcon,
+    CopyIcon,
+    GithubIcon,
+    SendIcon,
+    UserIcon,
+} from "lucide-react";
 import Link from "next/link";
 import { MouseEvent, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import * as z from "zod";
 
+import { Button } from "@/shadcn/button";
 import {
     Field,
     FieldDescription,
@@ -20,6 +27,7 @@ import {
     InputGroupText,
     InputGroupTextarea,
 } from "@/shadcn/input-group";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/shadcn/tooltip";
 
 import { Input } from "@/components/ui/input";
 
@@ -27,8 +35,7 @@ import { EMAIL, GITHUB_LINK } from "@/lib/link-constants";
 import { WindowProps } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
-import { Button } from "./ui/button";
-import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
+import { sendContactEmail } from "./action";
 
 function ContactInformation() {
     const [isEmailCopied, setIsEmailCopied] = useState(false);
@@ -60,10 +67,10 @@ function ContactInformation() {
                     </h2>
                 </div>
                 {/* TODO: Which color looks... better? everywhere? */}
-                <p className="mt-2 mb-6 text-sm text-gray-400">
-                    I&apos;m always open to discussing new projects, creative
-                    ideas, or opportunities to collaborate.
-                </p>
+                {/* <p className="mt-2 mb-6 text-sm text-gray-400"> */}
+                {/*     I&apos;m always open to discussing new projects, creative */}
+                {/*     ideas, or opportunities to collaborate. */}
+                {/* </p> */}
                 <p className="mt-2 mb-6 text-sm text-accent/70">
                     {/* <p className="mt-2 mb-6 text-sm text-gray-400"> */}
                     I&apos;m always open to discussing new projects, creative
@@ -118,50 +125,11 @@ function ContactInformation() {
                         target="_blank"
                         className="flex items-center gap-2 font-medium text-[#c49262] underline-offset-4 transition-colors hover:text-[#d4a572] hover:underline"
                     >
-                        <Github className="h-4 w-4" />
+                        <GithubIcon className="h-4 w-4" />
                         &apos;{GITHUB_LINK}&apos;
                     </Link>
                 </div>
             </div>
-
-            {/* <div className="font-mono"> */}
-            {/*     <span>&#123;</span> */}
-            {/*     <div> */}
-            {/*         <span className="pl-5 text-[#d5626a]">name:</span>{" "} */}
-            {/*         <span className="text-[#c49262]">&apos;Adam M.&apos;;</span> */}
-            {/*     </div> */}
-            {/*     <div className="relative"> */}
-            {/*         <span className="pl-5 text-[#d5626a]">email:</span>{" "} */}
-            {/*         <span className="text-[#c49262]">&apos;{EMAIL}&apos;;</span> */}
-            {/*         <Tooltip open={isEmailCopied || undefined}> */}
-            {/*             <TooltipTrigger asChild> */}
-            {/*                 <Button */}
-            {/*                     variant="ghost" */}
-            {/*                     onMouseUp={copyToClipboard} */}
-            {/*                     className={cn( */}
-            {/*                         isEmailCopied && "bg-white text-foreground" */}
-            {/*                     )} */}
-            {/*                 > */}
-            {/*                     <CopyIcon /> */}
-            {/*                 </Button> */}
-            {/*             </TooltipTrigger> */}
-            {/*             <TooltipContent> */}
-            {/*                 {isEmailCopied ? "Email Copied" : "Copy Email"} */}
-            {/*             </TooltipContent> */}
-            {/*         </Tooltip> */}
-            {/*     </div> */}
-            {/*     <div> */}
-            {/*         <span className="pl-5 text-[#d5626a]">github:</span>{" "} */}
-            {/*         <Link */}
-            {/*             href={GITHUB_LINK} */}
-            {/*             target="_blank" */}
-            {/*             className="text-[#c49262]" */}
-            {/*         > */}
-            {/*             &apos;{GITHUB_LINK}&apos;; */}
-            {/*         </Link> */}
-            {/*     </div> */}
-            {/*     <span>&#125;</span> */}
-            {/* </div> */}
         </div>
     );
 }
@@ -175,7 +143,7 @@ const formSchema = z.object({
         .string()
         .min(20, "Description must be at least 20 characters.")
         .max(500, "Description must be at most 500 characters."),
-    email: z.string().email("Please enter a valid email address."),
+    email: z.email("Please enter a valid email address."),
     phone: z
         .string()
         .min(10, "Phone number must be at least 10 digits.")
@@ -183,6 +151,9 @@ const formSchema = z.object({
 });
 
 function ContactForm() {
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitSuccess, setSubmitSuccess] = useState(false);
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -193,13 +164,42 @@ function ContactForm() {
         },
     });
 
-    function onSubmit(data: z.infer<typeof formSchema>) {
-        console.debug("submitted", data);
+    async function onSubmit(data: z.infer<typeof formSchema>) {
+        setIsSubmitting(true);
+
+        const result = await sendContactEmail(data);
+
+        setIsSubmitting(false);
+
+        if (result && result.success) {
+            setSubmitSuccess(true);
+            setTimeout(() => {
+                setSubmitSuccess(false);
+                form.reset();
+            }, 3000);
+        } else {
+            if (result) {
+                // Handle error - you might want to add error state
+                console.error(result.message);
+            } else {
+                console.error(
+                    "Error with submitting email, result is undefined"
+                );
+            }
+        }
     }
 
     return (
         <div className="mx-auto w-full max-w-lg rounded bg-[#1e1e1e] p-4">
             <div>
+                <div className="mb-8 flex items-center gap-3">
+                    <div className="flex size-10 items-center justify-center rounded-lg bg-gray-800/50 text-gray-400">
+                        <SendIcon className="size-5" />
+                    </div>
+                    <h2 className="text-2xl font-bold text-white">
+                        Send a Message
+                    </h2>
+                </div>
                 <form id="contact-form" onSubmit={form.handleSubmit(onSubmit)}>
                     <FieldGroup>
                         <Controller
@@ -207,15 +207,66 @@ function ContactForm() {
                             control={form.control}
                             render={({ field, fieldState }) => (
                                 <Field data-invalid={fieldState.invalid}>
-                                    <FieldLabel htmlFor="contact-form-title">
-                                        Bug Title
+                                    <FieldLabel htmlFor="contact-form-name">
+                                        Name
                                     </FieldLabel>
                                     <Input
                                         {...field}
-                                        id="contact-form-title"
+                                        id="contact-form-name"
                                         aria-invalid={fieldState.invalid}
-                                        placeholder="Login button not working on mobile"
-                                        autoComplete="off"
+                                        placeholder="John Doe"
+                                        autoComplete="name"
+                                        className="border-accent/10 text-white transition-all placeholder:text-accent/40 focus-visible:border-accent/30 focus-visible:ring-0"
+                                    />
+                                    {fieldState.invalid && (
+                                        <FieldError
+                                            errors={[fieldState.error]}
+                                        />
+                                    )}
+                                </Field>
+                            )}
+                        />
+                        <Controller
+                            name="email"
+                            control={form.control}
+                            render={({ field, fieldState }) => (
+                                <Field data-invalid={fieldState.invalid}>
+                                    <FieldLabel htmlFor="contact-form-email">
+                                        Email
+                                    </FieldLabel>
+                                    <Input
+                                        {...field}
+                                        id="contact-form-email"
+                                        type="email"
+                                        aria-invalid={fieldState.invalid}
+                                        placeholder="john@example.com"
+                                        autoComplete="email"
+                                        className="border-accent/10 text-white transition-all placeholder:text-accent/40 focus-visible:border-accent/30 focus-visible:ring-0"
+                                    />
+                                    {fieldState.invalid && (
+                                        <FieldError
+                                            errors={[fieldState.error]}
+                                        />
+                                    )}
+                                </Field>
+                            )}
+                        />
+                        <Controller
+                            name="phone"
+                            control={form.control}
+                            render={({ field, fieldState }) => (
+                                <Field data-invalid={fieldState.invalid}>
+                                    <FieldLabel htmlFor="contact-form-phone">
+                                        Phone
+                                    </FieldLabel>
+                                    <Input
+                                        {...field}
+                                        id="contact-form-phone"
+                                        type="tel"
+                                        aria-invalid={fieldState.invalid}
+                                        placeholder="+971 50 123 4567"
+                                        autoComplete="tel"
+                                        className="border-accent/10 text-white transition-all placeholder:text-accent/40 focus-visible:border-accent/30 focus-visible:ring-0"
                                     />
                                     {fieldState.invalid && (
                                         <FieldError
@@ -231,27 +282,37 @@ function ContactForm() {
                             render={({ field, fieldState }) => (
                                 <Field data-invalid={fieldState.invalid}>
                                     <FieldLabel htmlFor="contact-form-description">
-                                        Description
+                                        Message
                                     </FieldLabel>
-                                    <InputGroup>
+                                    <InputGroup className="border-accent/10 ring-0! has-[[data-slot=input-group-control]:focus-visible]:border-accent/30">
                                         <InputGroupTextarea
                                             {...field}
                                             id="contact-form-description"
-                                            placeholder="I'm having an issue with the login button on mobile."
+                                            placeholder="Tell me about your project, question, or just say hello..."
                                             rows={6}
-                                            className="min-h-24 resize-none"
+                                            className="min-h-32 text-white transition-all placeholder:text-accent/40"
                                             aria-invalid={fieldState.invalid}
                                         />
                                         <InputGroupAddon align="block-end">
-                                            <InputGroupText className="tabular-nums">
-                                                {field.value.length}/100
-                                                characters
+                                            <InputGroupText
+                                                className={cn(
+                                                    "text-xs font-medium tabular-nums transition-colors",
+                                                    field.value.length > 500
+                                                        ? "text-red-400"
+                                                        : field.value.length >
+                                                            400
+                                                          ? "text-yellow-500"
+                                                          : "text-gray-500"
+                                                )}
+                                            >
+                                                {field.value.length}/500
                                             </InputGroupText>
                                         </InputGroupAddon>
                                     </InputGroup>
-                                    <FieldDescription>
-                                        Include steps to reproduce, expected
-                                        behavior, and what actually happened.
+                                    <FieldDescription className="text-sm text-gray-400">
+                                        Please provide as much detail as
+                                        possible so I can better understand how
+                                        to help.
                                     </FieldDescription>
                                     {fieldState.invalid && (
                                         <FieldError
@@ -264,17 +325,46 @@ function ContactForm() {
                     </FieldGroup>
                 </form>
             </div>
-            <div>
+            <div className="mt-6">
                 <Field orientation="horizontal">
                     <Button
                         type="button"
-                        variant="outline"
+                        variant="ghost"
                         onClick={() => form.reset()}
+                        disabled={isSubmitting}
+                        className="hover:bg-accent/10 hover:text-white"
                     >
                         Reset
                     </Button>
-                    <Button type="submit" form="form-rhf-demo">
-                        Submit
+                    <Button
+                        type="submit"
+                        form="contact-form"
+                        disabled={isSubmitting}
+                        className={cn(
+                            "group px-8 transition-all",
+                            submitSuccess
+                                ? "bg-green-600 hover:bg-green-600"
+                                : "bg-blue-600 hover:bg-blue-700"
+                        )}
+                    >
+                        <span className="flex items-center gap-2 font-semibold">
+                            {isSubmitting ? (
+                                <>
+                                    <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                                    Sending...
+                                </>
+                            ) : submitSuccess ? (
+                                <>
+                                    <CheckIcon className="h-4 w-4" />
+                                    Sent!
+                                </>
+                            ) : (
+                                <>
+                                    Send Message
+                                    <SendIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                                </>
+                            )}
+                        </span>
                     </Button>
                 </Field>
             </div>
