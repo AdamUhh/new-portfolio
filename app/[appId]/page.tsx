@@ -1,9 +1,9 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
-import { DesktopItems } from "@/components/DesktopItems";
+import { DesktopItems } from "@/components/Desktop/DesktopItems";
+import { Taskbar } from "@/components/Desktop/Taskbar";
 import { FallbackImage } from "@/components/FallbackImage";
-import { Taskbar } from "@/components/Taskbar";
 import { WindowContainer } from "@/components/Window/WindowContainer";
 
 import { getAllApps, getApp } from "@/lib/registry";

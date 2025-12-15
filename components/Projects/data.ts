@@ -1,8 +1,8 @@
 import React from "react";
 
 import { ClockHub } from "./ClockHub";
-import { ProjectB } from "./ProjectB";
-import { ProjectC } from "./ProjectC";
+import { HeadlessDashboard } from "./HeadlessDashboard";
+import { Loflo } from "./Loflo";
 import { ProjectProps } from "./projects.type";
 
 export const projects: {
@@ -26,7 +26,7 @@ export const projects: {
             "A folder-like flashcard app where users can learn through digital flashcards.",
         imageSrc: "/image-not-found.webp",
         tags: ["Side Project", "NextJS", "Typescript"],
-        component: ProjectB,
+        component: Loflo,
     },
     {
         title: "Headless Dashboard",
@@ -34,6 +34,6 @@ export const projects: {
             "A headless e-commerce dashboard that replicates core features of Shopify.",
         imageSrc: "/image-not-found.webp",
         tags: ["Work", "NextJS", "Typescript", "AWS"],
-        component: ProjectC,
+        component: HeadlessDashboard,
     },
 ] as const;

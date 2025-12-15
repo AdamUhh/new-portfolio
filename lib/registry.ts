@@ -37,7 +37,7 @@ export const APP_REGISTRY: Record<string, AppDefinition> = {
     },
 
     [APP_REGISTRY_NAMES.projects]: {
-        id: APP_REGISTRY_NAMES.contact,
+        id: APP_REGISTRY_NAMES.projects,
         title: "My Projects",
         titlebarIcon: mdiBriefcase,
         isTitleMdiIcon: true,

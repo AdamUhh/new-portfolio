@@ -9,6 +9,8 @@ import {
     Schibsted_Grotesk,
 } from "next/font/google";
 
+import { HOST_LINK } from "@/lib/link-constants";
+
 import { WindowProvider } from "@/context/window";
 
 import "./globals.css";
@@ -50,17 +52,17 @@ export const metadata: Metadata = {
     openGraph: {
         title: "AdamUhh's Portfolio",
         description: "Welcome to my portfolio",
-        url: "https://adamuhh.dev",
+        url: HOST_LINK,
         siteName: "AdamUhh's Portfolio",
         images: [
             {
-                url: "https://adamuhh.dev/logo_600x600.png",
+                url: new URL("logo_600x600.png", HOST_LINK).href,
                 width: 600,
                 height: 600,
                 alt: "AdamUhh Logo",
             },
             {
-                url: "https://adamuhh.dev/logo_1000x1000.png",
+                url: new URL("logo_1000x1000.png", HOST_LINK).href,
                 width: 1000,
                 height: 1000,
                 alt: "AdamUhh Logo",
@@ -73,7 +75,7 @@ export const metadata: Metadata = {
         username: "AdamUhh",
         gender: "Male",
     },
-    metadataBase: new URL("https://adamuhh.dev"),
+    metadataBase: new URL(HOST_LINK),
 };
 
 export default function RootLayout({

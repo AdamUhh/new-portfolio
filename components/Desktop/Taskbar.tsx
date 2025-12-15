@@ -10,6 +10,7 @@ import Icon from "@mdi/react";
 import { WifiIcon } from "lucide-react";
 
 import { Button } from "@/shadcn/button";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/shadcn/tooltip";
 
 import { Clock } from "@/components/Clock";
 import { VSCodeIcon } from "@/components/svg/vscode";
@@ -20,8 +21,6 @@ import { WindowMetadata } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
 import { useWindowManager } from "@/context/window";
-
-import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
 
 function TaskbarVSCode({ win }: { win: WindowMetadata | undefined }) {
     const { openWindow, toggleWindow } = useWindowManager();

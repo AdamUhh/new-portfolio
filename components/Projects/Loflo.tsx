@@ -1,8 +1,8 @@
-import { CLOCKHUB_LINK } from "@/lib/link-constants";
+import { LOFLO_LINK } from "@/lib/link-constants";
 
 import { FallbackImage } from "../FallbackImage";
 
-export function ClockHub() {
+export function Loflo() {
     return (
         <div className="flex size-full flex-col overflow-hidden bg-[#191919] text-accent">
             {/* Content */}
@@ -10,19 +10,19 @@ export function ClockHub() {
                 <div className="mx-auto max-w-3xl space-y-8">
                     {/* Title */}
                     <div className="space-y-3">
-                        <h1 className="text-5xl font-bold">Clock Hub</h1>
+                        <h1 className="text-5xl font-bold">Loflo</h1>
                         <p className="text-lg text-accent/80">
                             A clock app for extra monitors with world clocks,
                             stopwatch, and timer functionality.
                         </p>
                         <div className="flex gap-3">
                             <a
-                                href={CLOCKHUB_LINK}
+                                href={LOFLO_LINK}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center gap-2 rounded bg-[#0a84c8] px-4 py-2 text-sm transition-colors hover:bg-[#0a84c8]/80"
                             >
-                                View Live Demo
+                                View Github
                                 <svg
                                     width="16"
                                     height="16"

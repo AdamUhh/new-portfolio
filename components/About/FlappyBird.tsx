@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-import { Button } from "./ui/button";
+import { Button } from "@/shadcn/button";
 
 interface Pipe {
     x: number;

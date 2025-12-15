@@ -1,23 +1,6 @@
 "use client";
 
-import {
-    mdiAlertOutline,
-    mdiBadgeAccount,
-    mdiBellOutline,
-    mdiClose,
-    mdiCloseCircleOutline,
-    mdiCodeTags,
-    mdiConsole,
-    mdiDevTo,
-    mdiDotsHorizontal,
-    mdiEmailEdit,
-    mdiFileMultipleOutline,
-    mdiFolderOpen,
-    mdiGit,
-    mdiGithub,
-    mdiHistory,
-    mdiInformationOutline,
-} from "@mdi/js";
+import { mdiClose, mdiDotsHorizontal, mdiFolderOpen } from "@mdi/js";
 import Icon from "@mdi/react";
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
@@ -33,9 +16,7 @@ import { Button } from "@/shadcn/button";
 import { Separator } from "@/shadcn/separator";
 import { SidebarInset, SidebarProvider } from "@/shadcn/sidebar";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/shadcn/tabs";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/shadcn/tooltip";
 
-import { Clock, TimeOnApp } from "@/components/Clock";
 import { FallbackImage } from "@/components/FallbackImage";
 import {
     Collapsible,
@@ -62,173 +43,11 @@ import { cn } from "@/lib/utils";
 
 import { useWindowManager } from "@/context/window";
 
-import { TriggerFlappyBird } from "../FlappyBird";
-import { Skill, skillDict, skillList } from "./skills";
-
-function ActivityBar({ winId }: { winId: string }) {
-    const { openWindow, closeWindow } = useWindowManager();
-
-    return (
-        <div className="flex w-12 flex-col justify-between bg-[#333333]">
-            <div>
-                <Tooltip>
-                    <TooltipTrigger asChild>
-                        <Button
-                            variant="ghost"
-                            className="relative size-12 rounded-xs hover:bg-accent/10"
-                            onMouseUp={() => closeWindow(winId)}
-                        >
-                            <Icon
-                                className="size-6.5 text-accent/70"
-                                path={mdiFileMultipleOutline}
-                            />
-                        </Button>
-                    </TooltipTrigger>
-                    <TooltipContent className="dark">
-                        Go to Desktop
-                    </TooltipContent>
-                </Tooltip>
-
-                <Tooltip>
-                    <TooltipTrigger asChild>
-                        <Button
-                            variant="ghost"
-                            className="relative size-12 rounded-xs after:absolute after:inset-0 after:content-center after:border-l-2 after:border-l-white hover:bg-accent/10"
-                        >
-                            <Icon
-                                className="size-6.5 text-white"
-                                path={mdiInformationOutline}
-                            />
-                        </Button>
-                    </TooltipTrigger>
-                    <TooltipContent className="dark">
-                        Go to About (you&apos;re here)
-                    </TooltipContent>
-                </Tooltip>
-
-                <Tooltip>
-                    <TooltipTrigger asChild>
-                        <Button
-                            variant="ghost"
-                            className="relative size-12 rounded-xs hover:bg-accent/10"
-                            onMouseUp={() =>
-                                openWindow(APP_REGISTRY_NAMES.projects)
-                            }
-                        >
-                            <Icon
-                                className="size-6.5 text-accent/70"
-                                path={mdiDevTo}
-                            />
-                        </Button>
-                    </TooltipTrigger>
-                    <TooltipContent className="dark">
-                        Check out my projects
-                    </TooltipContent>
-                </Tooltip>
-
-                <Tooltip>
-                    <TooltipTrigger asChild>
-                        <Button
-                            variant="ghost"
-                            className="relative size-12 rounded-xs hover:bg-accent/10"
-                            onMouseUp={() =>
-                                openWindow(APP_REGISTRY_NAMES.contact)
-                            }
-                        >
-                            <Icon
-                                className="size-6.5 text-accent/70"
-                                path={mdiEmailEdit}
-                            />
-                        </Button>
-                    </TooltipTrigger>
-                    <TooltipContent className="dark">
-                        Want to contact me?
-                    </TooltipContent>
-                </Tooltip>
-
-                <Tooltip>
-                    <TooltipTrigger asChild>
-                        <Button
-                            variant="ghost"
-                            className="relative size-12 rounded-xs hover:bg-accent/10"
-                            asChild
-                        >
-                            <Link
-                                href={"https://cv.adamUhh.dev"}
-                                target="_blank"
-                            >
-                                <Icon
-                                    className="size-6.5 text-accent/70"
-                                    path={mdiBadgeAccount}
-                                />
-                            </Link>
-                        </Button>
-                    </TooltipTrigger>
-                    <TooltipContent className="dark">View my CV</TooltipContent>
-                </Tooltip>
-            </div>
-            <div>
-                <Button
-                    variant="ghost"
-                    className="relative size-12 rounded-xs hover:bg-accent/10"
-                >
-                    <Icon path={mdiConsole} className="size-6.5 text-white" />
-                </Button>
-                <Button
-                    variant="ghost"
-                    className="relative size-12 rounded-xs hover:bg-accent/10"
-                    asChild
-                >
-                    <Link href={"https://github.com/AdamUhh"} target="_blank">
-                        <Icon
-                            className="size-6.5 text-white"
-                            path={mdiGithub}
-                        />
-                    </Link>
-                </Button>
-            </div>
-        </div>
-    );
-}
-
-type TreeLeaf = {
-    name: string;
-    value: string;
-    type: "tree" | "window" | "link";
-};
-type TreeItem = TreeLeaf | [TreeLeaf, ...TreeItem[]];
-
-const data = {
-    tree: [
-        [
-            { name: "pages" },
-            { name: "about.html", value: "about", type: "tree" },
-            { name: "experience.ts", value: "experience", type: "tree" },
-        ],
-        [
-            { name: "other-windows" },
-            {
-                name: "projects.tsx",
-                value: APP_REGISTRY_NAMES.projects,
-                type: "window",
-            },
-            {
-                name: "contact.css",
-                value: APP_REGISTRY_NAMES.contact,
-                type: "window",
-            },
-        ],
-        [
-            { name: "links" },
-            {
-                name: "github.json",
-                value: "https://github.com/AdamUhh",
-                type: "link",
-            },
-            { name: "cv.tsx", value: "https://cv.adamuhh.dev", type: "link" },
-        ],
-    ],
-};
+import { ActivityBar } from "./ActivityBar";
+import { TriggerFlappyBird } from "./FlappyBird";
+import { StatusBar } from "./StatusBar";
+import { TreeItem, explorerData } from "./explorer.data";
+import { Skill, skillDict, skillList } from "./skills.data";
 
 export function AppSidebar({
     setExplorerTab,
@@ -262,7 +81,7 @@ export function AppSidebar({
                             </CollapsibleTrigger>
                             <CollapsibleContent>
                                 <SidebarMenu className="px-1">
-                                    {data.tree.map((item, index) => (
+                                    {explorerData.tree.map((item, index) => (
                                         <Tree
                                             key={index}
                                             item={item as TreeItem}
@@ -378,112 +197,6 @@ function Tree({
     );
 }
 
-function ExplorerBar() {
-    const [explorerTab, setExplorerTab] = useState<"about" | "experience">(
-        "about"
-    );
-
-    return (
-        <div className="relative flex flex-1 overflow-hidden bg-[#252526]">
-            <SidebarProvider
-                style={
-                    {
-                        "--sidebar-width": "12rem",
-                        "--sidebar-width-mobile": "12rem",
-                        "--sidebar": "#252526",
-                        "--sidebar-foreground": "#ffffff",
-                        "--sidebar-accent-foreground": "#ffffff",
-                    } as CSSProperties
-                }
-                className="min-h-auto"
-            >
-                <AppSidebar
-                    variant="inset"
-                    className="absolute! h-full! p-0!"
-                    style={
-                        {
-                            width: "12rem",
-                        } as CSSProperties
-                    }
-                    setExplorerTab={setExplorerTab}
-                />
-                <SidebarInset className="m-0! overflow-hidden rounded-none! bg-[#1e1e1e]">
-                    <div className="flex flex-col overflow-hidden rounded-none bg-[#1e1e1e] text-white">
-                        <Tabs
-                            value={explorerTab}
-                            onValueChange={setExplorerTab as () => string}
-                            className="overflow-hidden rounded-none"
-                        >
-                            <TabsList className="h-fit w-full justify-start rounded-none bg-[#252526] p-0">
-                                <div className="relative">
-                                    <TabsTrigger
-                                        className="h-full flex-0 justify-start rounded-none border-none bg-[#2d2d2d] pr-8 pl-2 text-white/70 hover:bg-accent/10 data-[state=active]:bg-[#1e1e1e] data-[state=active]:text-white"
-                                        value="about"
-                                    >
-                                        <Icon
-                                            path={getIconFromFileExt(".html")}
-                                            color={getColorFromFileExt(".html")}
-                                        />
-                                        about.html
-                                    </TabsTrigger>
-
-                                    <TabsTrigger
-                                        className="absolute top-0 right-0 bg-transparent!"
-                                        value="experience"
-                                    >
-                                        <Icon
-                                            path={mdiClose}
-                                            className="size-3.5 text-white"
-                                        />
-                                    </TabsTrigger>
-                                </div>
-
-                                <div className="relative">
-                                    <TabsTrigger
-                                        className="h-full flex-0 justify-start rounded-none border-none bg-[#2d2d2d] pr-8 pl-2 text-white/70 hover:bg-accent/10 data-[state=active]:bg-[#1e1e1e] data-[state=active]:text-white"
-                                        value="experience"
-                                        id="open-experience"
-                                    >
-                                        <Icon
-                                            path={getIconFromFileExt(".ts")}
-                                            color={getColorFromFileExt(".ts")}
-                                        />
-                                        experience.ts
-                                    </TabsTrigger>
-
-                                    <TabsTrigger
-                                        className="absolute top-0 right-0 bg-transparent!"
-                                        value="about"
-                                    >
-                                        <Icon
-                                            path={mdiClose}
-                                            className="size-3.5 text-white"
-                                        />
-                                    </TabsTrigger>
-                                </div>
-                            </TabsList>
-                            <TabsContent
-                                value="about"
-                                className="space-y-6 overflow-y-auto px-6 py-4"
-                            >
-                                <Header />
-                                <Details setExplorerTab={setExplorerTab} />
-                            </TabsContent>
-                            <TabsContent
-                                value="experience"
-                                className="space-y-6 overflow-y-auto px-6 py-4"
-                            >
-                                <Skills />
-                                <Projects />
-                                <Experience />
-                            </TabsContent>
-                        </Tabs>
-                    </div>
-                </SidebarInset>
-            </SidebarProvider>
-        </div>
-    );
-}
 function Header() {
     const { openWindow } = useWindowManager();
     return (
@@ -909,37 +622,109 @@ function Experience() {
     );
 }
 
-function StatusBar() {
-    return (
-        <div className="flex h-5 w-full justify-between bg-[#2b7ccc] text-xs text-white">
-            <div className="flex space-x-2.5">
-                <div className="flex h-full w-fit items-center bg-[#32815d] px-3">
-                    <Icon path={mdiCodeTags} className="size-3.5" />
-                </div>
-                <div className="flex items-center gap-1">
-                    <Icon path={mdiGit} className="size-3.5" />
-                    <span>main*</span>
-                </div>
-                <div className="flex items-center gap-1">
-                    <Icon path={mdiCloseCircleOutline} className="size-3.5" />
-                    <span>0</span>
-                    <Icon path={mdiAlertOutline} className="size-3.5" />
-                    <span>0</span>
-                </div>
-                <div className="flex items-center gap-1">
-                    <Icon path={mdiHistory} className="size-3.5" />
-                    <TimeOnApp />
-                </div>
-            </div>
+function ExplorerBar() {
+    const [explorerTab, setExplorerTab] = useState<"about" | "experience">(
+        "about"
+    );
 
-            <div className="flex space-x-2.5 pr-2">
-                <div className="flex items-center gap-1">
-                    <Clock hideDate />
-                </div>
-                <div className="flex items-center gap-1">
-                    <Icon path={mdiBellOutline} className="size-3.5" />
-                </div>
-            </div>
+    return (
+        <div className="relative flex flex-1 overflow-hidden bg-[#252526]">
+            <SidebarProvider
+                style={
+                    {
+                        "--sidebar-width": "12rem",
+                        "--sidebar-width-mobile": "12rem",
+                        "--sidebar": "#252526",
+                        "--sidebar-foreground": "#ffffff",
+                        "--sidebar-accent-foreground": "#ffffff",
+                    } as CSSProperties
+                }
+                className="min-h-auto"
+            >
+                <AppSidebar
+                    variant="inset"
+                    className="absolute! h-full! p-0!"
+                    style={
+                        {
+                            width: "12rem",
+                        } as CSSProperties
+                    }
+                    setExplorerTab={setExplorerTab}
+                />
+                <SidebarInset className="m-0! overflow-hidden rounded-none! bg-[#1e1e1e]">
+                    <div className="flex flex-col overflow-hidden rounded-none bg-[#1e1e1e] text-white">
+                        <Tabs
+                            value={explorerTab}
+                            onValueChange={setExplorerTab as () => string}
+                            className="overflow-hidden rounded-none"
+                        >
+                            <TabsList className="h-fit w-full justify-start rounded-none bg-[#252526] p-0">
+                                <div className="relative">
+                                    <TabsTrigger
+                                        className="h-full flex-0 justify-start rounded-none border-none bg-[#2d2d2d] pr-8 pl-2 text-white/70 hover:bg-accent/10 data-[state=active]:bg-[#1e1e1e] data-[state=active]:text-white"
+                                        value="about"
+                                    >
+                                        <Icon
+                                            path={getIconFromFileExt(".html")}
+                                            color={getColorFromFileExt(".html")}
+                                        />
+                                        about.html
+                                    </TabsTrigger>
+
+                                    <TabsTrigger
+                                        className="absolute top-0 right-0 bg-transparent!"
+                                        value="experience"
+                                    >
+                                        <Icon
+                                            path={mdiClose}
+                                            className="size-3.5 text-white"
+                                        />
+                                    </TabsTrigger>
+                                </div>
+
+                                <div className="relative">
+                                    <TabsTrigger
+                                        className="h-full flex-0 justify-start rounded-none border-none bg-[#2d2d2d] pr-8 pl-2 text-white/70 hover:bg-accent/10 data-[state=active]:bg-[#1e1e1e] data-[state=active]:text-white"
+                                        value="experience"
+                                        id="open-experience"
+                                    >
+                                        <Icon
+                                            path={getIconFromFileExt(".ts")}
+                                            color={getColorFromFileExt(".ts")}
+                                        />
+                                        experience.ts
+                                    </TabsTrigger>
+
+                                    <TabsTrigger
+                                        className="absolute top-0 right-0 bg-transparent!"
+                                        value="about"
+                                    >
+                                        <Icon
+                                            path={mdiClose}
+                                            className="size-3.5 text-white"
+                                        />
+                                    </TabsTrigger>
+                                </div>
+                            </TabsList>
+                            <TabsContent
+                                value="about"
+                                className="space-y-6 overflow-y-auto px-6 py-4"
+                            >
+                                <Header />
+                                <Details setExplorerTab={setExplorerTab} />
+                            </TabsContent>
+                            <TabsContent
+                                value="experience"
+                                className="space-y-6 overflow-y-auto px-6 py-4"
+                            >
+                                <Skills />
+                                <Projects />
+                                <Experience />
+                            </TabsContent>
+                        </Tabs>
+                    </div>
+                </SidebarInset>
+            </SidebarProvider>
         </div>
     );
 }

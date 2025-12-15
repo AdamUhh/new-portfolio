@@ -137,7 +137,10 @@ export function ProjectsWindow({ windowId }: WindowProps) {
                         <SelectTrigger className="h-4! flex-1 border-0 bg-transparent p-0 text-sm text-accent/80 shadow-none focus:ring-0!">
                             <SelectValue placeholder="projects/" />
                         </SelectTrigger>
-                        <SelectContent position="popper">
+                        <SelectContent
+                            position="popper"
+                            className="-left-3 rounded"
+                        >
                             {projects.map((project) => (
                                 <SelectItem
                                     key={project.title}
@@ -159,7 +162,7 @@ export function ProjectsWindow({ windowId }: WindowProps) {
             {/* Content */}
             <div className="flex flex-[1_1_0] overflow-x-hidden overflow-y-auto">
                 {ProjectComponent ? (
-                    <ProjectComponent onBack={() => setSelectedIndex(null)} />
+                    <ProjectComponent />
                 ) : (
                     <div className="grid h-fit w-full animate-fade-in-up grid-cols-[repeat(auto-fit,minmax(16rem,20rem))] justify-center gap-4 p-4">
                         {projects.map((project, index) => (

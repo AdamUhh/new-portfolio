@@ -1,3 +1,2 @@
-export interface ProjectProps {
-    onBack: () => void;
-}
+// export interface ProjectProps {}
+export type ProjectProps = unknown;

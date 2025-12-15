@@ -145,7 +145,7 @@ function WindowBase({ window: w }: WindowComponentProps) {
                     )}
                 >
                     {/* Titlebar */}
-                    <div className="draggable-handle flex cursor-move items-center justify-between bg-[#252526] px-3 py-2 text-white select-none">
+                    <div className="draggable-handle z-10 flex cursor-move items-center justify-between bg-[#252526] px-3 py-2 text-white shadow shadow-black/40 select-none">
                         <div className="flex items-center gap-2">
                             {titlebarIcon &&
                                 (isTitleMdiIcon ? (

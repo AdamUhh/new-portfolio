@@ -12,13 +12,15 @@ import Icon from "@mdi/react";
 import Link from "next/link";
 import { useState } from "react";
 
+import { Button } from "@/shadcn/button";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/shadcn/tooltip";
+
+import { CV_LINK, GITHUB_LINK } from "@/lib/link-constants";
 import { APP_REGISTRY_NAMES } from "@/lib/registry-constants";
 
 import { useWindowManager } from "@/context/window";
 
-import { VSCodeIcon } from "./svg/vscode";
-import { Button } from "./ui/button";
-import { Tooltip, TooltipContent, TooltipTrigger } from "./ui/tooltip";
+import { VSCodeIcon } from "../svg/vscode";
 
 // function VSCodeLoading() {
 //     return (
@@ -112,7 +114,7 @@ export function DesktopItems() {
                         variant="ghost"
                         asChild
                     >
-                        <Link href="https://github.com/AdamUhh" target="_blank">
+                        <Link href={GITHUB_LINK} target="_blank">
                             <Icon path={mdiGithub} className="size-10" />
                             GitHub
                         </Link>
@@ -148,7 +150,7 @@ export function DesktopItems() {
                         variant="ghost"
                         asChild
                     >
-                        <Link href="https://cv.adamuhh.dev" target="_blank">
+                        <Link href={CV_LINK} target="_blank">
                             <Icon path={mdiBadgeAccount} className="size-10" />
                             CV
                         </Link>
