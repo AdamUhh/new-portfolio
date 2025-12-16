@@ -86,7 +86,7 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body
-                className={`${albertSans.variable} ${JetBrainsMono.variable} ${inter.variable} ${grotesk.variable} ${geistSans.variable} ${geistMono.variable} antialiased`}
+                className={`${albertSans.variable} ${JetBrainsMono.variable} ${inter.variable} ${grotesk.variable} ${geistSans.variable} ${geistMono.variable} bg-black antialiased`}
             >
                 {/* <HolyLoader showSpinner={false} /> */}
                 <WindowProvider>{children}</WindowProvider>

@@ -2,6 +2,8 @@
 
 import { SESClient, SendEmailCommand } from "@aws-sdk/client-ses";
 
+import { formSchema } from "./validate";
+
 const sesClient = new SESClient({
     region: process.env.AWS_REGION || "us-east-1",
     credentials: {
@@ -13,72 +15,53 @@ const sesClient = new SESClient({
 export async function sendContactEmail(data: {
     name: string;
     email: string;
-    phone: string;
+    phone?: string;
+    company?: string;
     description: string;
 }) {
+    // Validate on server side
+    const validation = formSchema.safeParse(data);
+
+    if (!validation.success) {
+        return {
+            success: false,
+            message: "Validation failed",
+            errors: validation.error.flatten().fieldErrors,
+        };
+    }
+
     if (!process.env.SES_SENDER_EMAIL) {
         console.error("No sender email provided");
-        return;
+        return {
+            success: false,
+            message: "Email configuration error",
+        };
     }
 
     try {
         const command = new SendEmailCommand({
-            Source: process.env.SES_SENDER_EMAIL, // This must be a verified email in SES
-            ReplyToAddresses: [data.email], // User can reply directly to the form submitter
+            Source: process.env.SES_SENDER_EMAIL,
+            ReplyToAddresses: [data.email],
             Destination: {
                 ToAddresses: [process.env.SES_SENDER_EMAIL],
             },
             Message: {
                 Subject: {
-                    Data: `New Contact Form Submission from ${data.name}`,
+                    Data: `New Contact: ${data.name}`,
                     Charset: "UTF-8",
                 },
                 Body: {
                     Html: {
                         Data: `
-                            <!DOCTYPE html>
-                            <html>
-                            <head>
-                                <style>
-                                    body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-                                    .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-                                    .header { background-color: #2563eb; color: white; padding: 20px; border-radius: 8px 8px 0 0; }
-                                    .content { background-color: #f9fafb; padding: 20px; border: 1px solid #e5e7eb; }
-                                    .field { margin-bottom: 15px; }
-                                    .label { font-weight: bold; color: #1f2937; }
-                                    .value { color: #4b5563; margin-top: 5px; }
-                                    .footer { margin-top: 20px; padding-top: 20px; border-top: 1px solid #e5e7eb; font-size: 12px; color: #6b7280; }
-                                </style>
-                            </head>
-                            <body>
-                                <div class="container">
-                                    <div class="header">
-                                        <h2>New Contact Form Submission</h2>
-                                    </div>
-                                    <div class="content">
-                                        <div class="field">
-                                            <div class="label">Name:</div>
-                                            <div class="value">${data.name}</div>
-                                        </div>
-                                        <div class="field">
-                                            <div class="label">Email:</div>
-                                            <div class="value"><a href="mailto:${data.email}">${data.email}</a></div>
-                                        </div>
-                                        <div class="field">
-                                            <div class="label">Phone:</div>
-                                            <div class="value"><a href="tel:${data.phone}">${data.phone}</a></div>
-                                        </div>
-                                        <div class="field">
-                                            <div class="label">Message:</div>
-                                            <div class="value">${data.description.replace(/\n/g, "<br>")}</div>
-                                        </div>
-                                        <div class="footer">
-                                            <p>This email was sent from your website contact form.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </body>
-                            </html>
+                            <div style="max-width: 600px; margin: 0 auto; padding: 20px;">
+                                <h2>New Contact Form Submission</h2>
+                                <p><strong>Name:</strong> ${data.name}</p>
+                                <p><strong>Email:</strong> <a href="mailto:${data.email}">${data.email}</a></p>
+                                ${data.phone ? `<p><strong>Phone:</strong> ${data.phone}</p>` : ""}
+                                ${data.company ? `<p><strong>Company:</strong> ${data.company}</p>` : ""}
+                                <p><strong>Message:</strong></p>
+                                <p>${data.description.replace(/\n/g, "<br>")}</p>
+                            </div>
                         `,
                         Charset: "UTF-8",
                     },
@@ -88,7 +71,8 @@ New Contact Form Submission
 
 Name: ${data.name}
 Email: ${data.email}
-Phone: ${data.phone}
+${data.phone ? `Phone: ${data.phone}` : ""}
+${data.company ? `Company: ${data.company}` : ""}
 
 Message:
 ${data.description}

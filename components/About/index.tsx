@@ -398,7 +398,7 @@ function SkillBox({
                                   )}
                               >
                                   <span className="text-[#d5626a]">{name}</span>
-                                  :
+                                  :{" "}
                                   <span className="text-[#c49262]">
                                       &quot;{experience}&quot;;
                                   </span>
