@@ -44,7 +44,7 @@ export const APP_REGISTRY: Record<string, AppDefinition> = {
         component: ProjectsWindow,
         appIcon: mdiBriefcase,
         isAppMdiIcon: true,
-        defaultSize: { width: 600, height: 500 },
+        defaultSize: { width: 700, height: 500 },
     },
     [APP_REGISTRY_NAMES.contact]: {
         id: APP_REGISTRY_NAMES.contact,

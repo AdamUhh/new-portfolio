@@ -287,7 +287,7 @@ function ContactForm() {
                     variant="ghost"
                     onClick={() => form.reset()}
                     disabled={isSubmitting}
-                    className="hover:bg-accent/10 hover:text-white"
+                    className="text-accent/70 hover:bg-accent/10 hover:text-white"
                 >
                     Reset
                 </Button>

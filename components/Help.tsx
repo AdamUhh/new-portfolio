@@ -34,7 +34,7 @@ export function NeedHelpWindow({ windowId }: WindowProps) {
     }, [windowId, closeWindow]);
 
     return (
-        <div className="flex h-full w-full items-center justify-center p-8">
+        <div className="flex h-full w-full items-center justify-center bg-[#191919] p-8 text-white/95">
             <div
                 className="text-center transition-all duration-1000 ease-out"
                 style={{
@@ -43,18 +43,14 @@ export function NeedHelpWindow({ windowId }: WindowProps) {
                 }}
             >
                 <p className="mb-2 text-3xl font-semibold">🤔</p>
-                <p className="text-lg font-medium text-gray-600">
-                    Have you tried
-                </p>
-                <p className="text-2xl font-bold text-gray-800">
+                <p className="text-lg font-medium">Have you tried</p>
+                <p className="text-2xl font-bold">
                     Talking to someone who gets paid to listen?
                 </p>
-                <p className="mt-2 text-sm text-gray-500 italic">
+                <p className="mt-2 text-sm italic">
                     (Therapy. I&apos;m talking about therapy.)
                 </p>
-                <p className="mt-4 text-sm text-gray-500">
-                    Closing in {countdown}s
-                </p>
+                <p className="mt-4 text-sm">Closing in {countdown}s</p>
             </div>
         </div>
     );

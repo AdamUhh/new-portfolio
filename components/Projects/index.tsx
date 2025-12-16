@@ -15,7 +15,7 @@ import {
 import { WindowProps } from "@/lib/types";
 
 import { FallbackImage } from "../FallbackImage";
-import { projects } from "./data";
+import { TagType, projects, tagConfigs } from "./data";
 
 function ProjectCard({
     title,
@@ -32,29 +32,47 @@ function ProjectCard({
 }) {
     return (
         <div
-            className="relative aspect-10/11 w-full rounded bg-[#252526] transition-transform after:absolute after:inset-0 after:bg-transparent after:transition-colors after:duration-500 hover:scale-105 hover:cursor-pointer hover:after:bg-accent/5"
+            className="group relative aspect-10/11 w-full overflow-hidden rounded-lg bg-[#252526] shadow-md transition-all duration-300 hover:scale-[1.02] hover:cursor-pointer hover:shadow-xl"
             onClick={onClick}
         >
             <div className="relative flex h-full flex-col overflow-hidden">
-                <FallbackImage
-                    src={imageSrc}
-                    alt={`Thumbnail for ${title}`}
-                    width={0}
-                    height={0}
-                    className="h-40 max-h-40 min-h-40 w-full object-cover"
-                />
-                <div className="flex flex-1 flex-col space-y-2 p-2">
-                    <p className="text-xl">{title}</p>
-                    <p className="text-accent/80">{description}</p>
-                    <div className="mt-auto flex flex-wrap gap-2">
-                        {tags.map((tag) => (
-                            <div
-                                key={tag}
-                                className="w-fit rounded-xs bg-[#0a84c8] px-1.5 py-0.5 text-xs"
-                            >
-                                {tag}
-                            </div>
-                        ))}
+                {/* Image container with subtle zoom effect */}
+                <div className="relative h-40 max-h-40 min-h-40 w-full overflow-hidden">
+                    <FallbackImage
+                        src={imageSrc}
+                        alt={`Thumbnail for ${title}`}
+                        width={0}
+                        height={0}
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                </div>
+
+                {/* Content section */}
+                <div className="flex flex-1 flex-col space-y-3 p-4">
+                    <h3 className="line-clamp-2 text-xl font-semibold text-white/95">
+                        {title}
+                    </h3>
+                    <p className="line-clamp-3 text-sm leading-relaxed text-accent/70">
+                        {description}
+                    </p>
+
+                    {/* Tags */}
+                    <div className="mt-auto flex flex-wrap gap-2 pt-2">
+                        {tags.map((tag) => {
+                            const config = tagConfigs[tag as TagType];
+                            return (
+                                <div
+                                    key={tag}
+                                    className="w-fit rounded px-2 py-1 text-xs font-medium transition-transform duration-200 hover:scale-105"
+                                    style={{
+                                        backgroundColor: config.bgColor,
+                                        color: config.color || "white",
+                                    }}
+                                >
+                                    {tag}
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
             </div>
