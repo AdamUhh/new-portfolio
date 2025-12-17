@@ -145,8 +145,9 @@ function WindowBase({ window: w }: WindowComponentProps) {
                     )}
                 >
                     {/* Titlebar */}
-                    <div className="draggable-handle z-10 flex cursor-move items-center justify-between bg-[#252526] px-3 py-2 text-white shadow shadow-black/40 select-none">
-                        <div className="flex items-center gap-2">
+                    <div className="relative z-10 flex cursor-move items-center justify-between bg-[#252526] px-3 py-2 text-white shadow shadow-black/40 select-none">
+                        <div className="draggable-handle absolute inset-0 bg-[#252526]" />
+                        <div className="pointer-events-none z-10 flex items-center gap-2">
                             {titlebarIcon &&
                                 (isTitleMdiIcon ? (
                                     <Icon
@@ -162,10 +163,12 @@ function WindowBase({ window: w }: WindowComponentProps) {
                                 {title}
                             </span>
                         </div>
-
-                        <div className="flex gap-1">
+                        <div className="z-10 flex gap-1">
                             <Button
-                                onClick={() => minimizeWindow(w.id)}
+                                onPointerUp={(e) => {
+                                    e.stopPropagation();
+                                    minimizeWindow(w.id);
+                                }}
                                 variant="ghost"
                                 className="size-6 rounded bg-white/20"
                             >
@@ -173,7 +176,10 @@ function WindowBase({ window: w }: WindowComponentProps) {
                             </Button>
 
                             <Button
-                                onClick={() => toggleExpand(w.id)}
+                                onPointerUp={(e) => {
+                                    e.stopPropagation();
+                                    toggleExpand(w.id);
+                                }}
                                 variant="ghost"
                                 className="size-6 rounded bg-white/20"
                             >
@@ -187,7 +193,10 @@ function WindowBase({ window: w }: WindowComponentProps) {
                             </Button>
 
                             <Button
-                                onClick={() => closeWindow(w.id)}
+                                onPointerUp={(e) => {
+                                    e.stopPropagation();
+                                    closeWindow(w.id);
+                                }}
                                 variant="destructive"
                                 className="size-6 rounded bg-red-600"
                             >
@@ -197,8 +206,11 @@ function WindowBase({ window: w }: WindowComponentProps) {
                     </div>
 
                     <div
-                        className="flex-1 overflow-hidden"
-                        onMouseUp={handleFocus}
+                        className="flex-1 overflow-auto"
+                        onPointerUp={(e) => {
+                            e.stopPropagation();
+                            handleFocus();
+                        }}
                     >
                         <WindowContent windowId={w.id} />
                     </div>

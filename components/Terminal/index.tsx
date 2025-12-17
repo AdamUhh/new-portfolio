@@ -158,7 +158,10 @@ export function TerminalWindow({}: WindowProps) {
                 <div
                     ref={terminalRef}
                     className="size-full overflow-y-auto p-4 font-mono text-sm"
-                    onClick={() => inputRef.current?.focus()}
+                    onPointerUp={(e) => {
+                        e.stopPropagation();
+                        inputRef.current?.focus();
+                    }}
                 >
                     {history.map((item, idx) => (
                         <div key={idx} className="mb-1">

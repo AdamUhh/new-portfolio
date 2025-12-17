@@ -30,7 +30,10 @@ export function ActivityBar({ winId }: { winId: string }) {
                         <Button
                             variant="ghost"
                             className="relative size-12 rounded-xs hover:bg-accent/10"
-                            onMouseUp={() => closeWindow(winId)}
+                            onPointerUp={(e) => {
+                                e.stopPropagation();
+                                closeWindow(winId);
+                            }}
                         >
                             <Icon
                                 className="size-6.5 text-accent/70"
@@ -65,9 +68,10 @@ export function ActivityBar({ winId }: { winId: string }) {
                         <Button
                             variant="ghost"
                             className="relative size-12 rounded-xs hover:bg-accent/10"
-                            onMouseUp={() =>
-                                openWindow(APP_REGISTRY_NAMES.projects)
-                            }
+                            onPointerUp={(e) => {
+                                e.stopPropagation();
+                                openWindow(APP_REGISTRY_NAMES.projects);
+                            }}
                         >
                             <Icon
                                 className="size-6.5 text-accent/70"
@@ -85,9 +89,10 @@ export function ActivityBar({ winId }: { winId: string }) {
                         <Button
                             variant="ghost"
                             className="relative size-12 rounded-xs hover:bg-accent/10"
-                            onMouseUp={() =>
-                                openWindow(APP_REGISTRY_NAMES.contact)
-                            }
+                            onPointerUp={(e) => {
+                                e.stopPropagation();
+                                openWindow(APP_REGISTRY_NAMES.contact);
+                            }}
                         >
                             <Icon
                                 className="size-6.5 text-accent/70"
@@ -125,6 +130,10 @@ export function ActivityBar({ winId }: { winId: string }) {
                 <Button
                     variant="ghost"
                     className="relative size-12 rounded-xs hover:bg-accent/10"
+                    onPointerUp={(e) => {
+                        e.stopPropagation();
+                        openWindow(APP_REGISTRY_NAMES.terminal);
+                    }}
                 >
                     <Icon path={mdiConsole} className="size-6.5 text-white" />
                 </Button>

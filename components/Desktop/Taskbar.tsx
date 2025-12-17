@@ -40,7 +40,10 @@ function TaskbarVSCode({ win }: { win: WindowMetadata | undefined }) {
                             win?.isFocused ? "bg-accent after:bg-blue-600" : ""
                         )}
                         variant="ghost"
-                        onMouseUp={handleWindow}
+                        onPointerUp={(e) => {
+                            e.stopPropagation();
+                            handleWindow();
+                        }}
                     >
                         <VSCodeIcon className="size-7" />
                     </Button>
@@ -68,7 +71,10 @@ function TaskbarItem({ win }: { win: WindowMetadata }) {
                             win.isFocused ? "bg-accent after:bg-blue-600" : ""
                         )}
                         variant="ghost"
-                        onMouseUp={() => toggleWindow(win.id)}
+                        onPointerUp={(e) => {
+                            e.stopPropagation();
+                            toggleWindow(win.id);
+                        }}
                     >
                         {app?.appIcon ? (
                             app.isAppMdiIcon ? (

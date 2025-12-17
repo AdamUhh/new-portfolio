@@ -1,6 +1,6 @@
 "use client";
 
-import { InfoIcon } from "lucide-react";
+import { ArrowLeftIcon, ArrowRightIcon, InfoIcon } from "lucide-react";
 import { useState } from "react";
 
 import { Button } from "@/shadcn/button";
@@ -33,7 +33,10 @@ function ProjectCard({
     return (
         <div
             className="group relative aspect-10/11 w-full overflow-hidden rounded-lg bg-[#252526] shadow-md transition-all duration-300 hover:scale-[1.02] hover:cursor-pointer hover:shadow-xl"
-            onClick={onClick}
+            onPointerUp={(e) => {
+                e.stopPropagation();
+                onClick();
+            }}
         >
             <div className="relative flex h-full flex-col overflow-hidden">
                 {/* Image container with subtle zoom effect */}
@@ -99,40 +102,25 @@ export function ProjectsWindow({}: WindowProps) {
                 {/* Navigation buttons */}
                 <div className="flex items-center gap-1">
                     <Button
-                        onClick={() => setSelectedKey(null)}
+                        onPointerUp={(e) => {
+                            e.stopPropagation();
+                            setSelectedKey(null);
+                        }}
                         disabled={selectedKey === null}
                         variant="ghost"
                         size="sm"
                         className="h-8 w-8 p-0 text-accent/60 hover:bg-[#2d2d2d] hover:text-accent disabled:opacity-30"
                     >
-                        <svg
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                        >
-                            <path d="M19 12H5M12 19l-7-7 7-7" />
-                        </svg>
+                        <ArrowLeftIcon />
                     </Button>
-                    <Button
-                        variant="ghost"
-                        size="sm"
-                        disabled
-                        className="h-8 w-8 p-0 text-accent/60 hover:bg-[#2d2d2d] hover:text-accent disabled:opacity-30"
-                    >
-                        <svg
-                            width="18"
-                            height="18"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="2"
-                        >
-                            <path d="M5 12h14M12 5l7 7-7 7" />
-                        </svg>
-                    </Button>
+                    {/* <Button */}
+                    {/*     variant="ghost" */}
+                    {/*     size="sm" */}
+                    {/*     disabled */}
+                    {/*     className="h-8 w-8 p-0 text-accent/60 hover:bg-[#2d2d2d] hover:text-accent disabled:opacity-30" */}
+                    {/* > */}
+                    {/*     <ArrowRightIcon /> */}
+                    {/* </Button> */}
                 </div>
 
                 {/* Address bar / Project selector */}

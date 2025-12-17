@@ -528,7 +528,10 @@ export function TriggerFlappyBird() {
         <Button
             className="p-0 text-white"
             variant="link"
-            onMouseUp={() => setIsPlaying(true)}
+            onPointerUp={(e) => {
+                e.stopPropagation();
+                setIsPlaying(true);
+            }}
         >
             Click here to play Flappy Bird
         </Button>

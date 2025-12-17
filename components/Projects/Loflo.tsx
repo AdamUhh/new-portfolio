@@ -1,3 +1,5 @@
+import { ExternalLinkIcon } from "lucide-react";
+
 import { LOFLO_LINK } from "@/lib/link-constants";
 
 import { FallbackImage } from "../FallbackImage";
@@ -23,16 +25,7 @@ export function Loflo() {
                                 className="inline-flex items-center gap-2 rounded bg-[#0a84c8] px-4 py-2 text-sm transition-colors hover:bg-[#0a84c8]/80"
                             >
                                 View Github
-                                <svg
-                                    width="16"
-                                    height="16"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="2"
-                                >
-                                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
-                                </svg>
+                                <ExternalLinkIcon className="size-4" />
                             </a>
                         </div>
                     </div>

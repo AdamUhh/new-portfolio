@@ -10,7 +10,7 @@ import {
 } from "@mdi/js";
 import Icon from "@mdi/react";
 import Link from "next/link";
-import { useState } from "react";
+import { PointerEvent, useState } from "react";
 
 import { Button } from "@/shadcn/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shadcn/tooltip";
@@ -43,7 +43,8 @@ function NeedHelp() {
     const [hide, setHide] = useState(false);
     const { openWindow } = useWindowManager();
 
-    const handleHide = () => {
+    const handleHide = (e: PointerEvent<HTMLButtonElement>) => {
+        e.stopPropagation();
         openWindow(APP_REGISTRY_NAMES.help);
         setHide(true);
     };
@@ -56,7 +57,7 @@ function NeedHelp() {
                 <Button
                     className="aspect-square size-24 flex-col rounded text-background hover:bg-accent/70"
                     variant="ghost"
-                    onMouseUp={handleHide}
+                    onPointerUp={handleHide}
                 >
                     <Icon path={mdiHumanGreeting} className="size-10" />
                     Need Help?
@@ -79,7 +80,10 @@ export function DesktopItems() {
                     <Button
                         className="aspect-square size-24 flex-col rounded text-background hover:bg-accent/70"
                         variant="ghost"
-                        onMouseUp={() => openWindow(APP_REGISTRY_NAMES.about)}
+                        onPointerUp={(e) => {
+                            e.stopPropagation();
+                            openWindow(APP_REGISTRY_NAMES.about);
+                        }}
                     >
                         <VSCodeIcon className="size-8" />
                         About
@@ -95,9 +99,10 @@ export function DesktopItems() {
                     <Button
                         className="aspect-square size-24 flex-col rounded text-background hover:bg-accent/70"
                         variant="ghost"
-                        onMouseUp={() =>
-                            openWindow(APP_REGISTRY_NAMES.projects)
-                        }
+                        onPointerUp={(e) => {
+                            e.stopPropagation();
+                            openWindow(APP_REGISTRY_NAMES.projects);
+                        }}
                     >
                         <Icon path={mdiBriefcase} className="size-10" />
                         Projects
@@ -130,9 +135,10 @@ export function DesktopItems() {
                     <Button
                         className="aspect-square size-24 flex-col rounded text-background hover:bg-accent/70"
                         variant="ghost"
-                        onMouseUp={() =>
-                            openWindow(APP_REGISTRY_NAMES.terminal)
-                        }
+                        onPointerUp={(e) => {
+                            e.stopPropagation();
+                            openWindow(APP_REGISTRY_NAMES.terminal);
+                        }}
                     >
                         <Icon path={mdiConsole} className="size-10" />
                         Terminal
@@ -166,7 +172,10 @@ export function DesktopItems() {
                     <Button
                         className="aspect-square size-24 flex-col rounded text-background hover:bg-accent/70"
                         variant="ghost"
-                        onMouseUp={() => openWindow(APP_REGISTRY_NAMES.contact)}
+                        onPointerUp={(e) => {
+                            e.stopPropagation();
+                            openWindow(APP_REGISTRY_NAMES.contact);
+                        }}
                     >
                         <Icon path={mdiEmailEdit} className="size-10" />
                         Contact

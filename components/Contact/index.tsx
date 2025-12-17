@@ -47,6 +47,7 @@ function ContactInformation() {
 
     const copyToClipboard = async (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
+        event.stopPropagation();
         await navigator.clipboard.writeText(EMAIL);
 
         setIsEmailCopied(true);
@@ -95,7 +96,7 @@ function ContactInformation() {
                             <TooltipTrigger asChild>
                                 <Button
                                     variant="ghost"
-                                    onMouseUp={copyToClipboard}
+                                    onPointerUp={copyToClipboard}
                                     className={cn(
                                         "ml-auto size-8 text-white/60 hover:bg-accent/10 hover:text-white",
                                         isEmailCopied &&
@@ -285,7 +286,10 @@ function ContactForm() {
             <div className="mt-6 flex justify-between">
                 <Button
                     variant="ghost"
-                    onClick={() => form.reset()}
+                    onPointerUp={(e) => {
+                        e.stopPropagation();
+                        form.reset();
+                    }}
                     disabled={isSubmitting}
                     className="text-accent/70 hover:bg-accent/10 hover:text-white"
                 >

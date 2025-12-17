@@ -114,7 +114,10 @@ function Tree({
             return (
                 <SidebarMenuButton
                     isActive={dataItem.value === "about"}
-                    onMouseUp={() => setExplorerTab(dataItem.value as "about")}
+                    onPointerUp={(e) => {
+                        e.stopPropagation();
+                        setExplorerTab(dataItem.value as "about");
+                    }}
                     className="gap-1"
                 >
                     <Icon
@@ -130,7 +133,10 @@ function Tree({
             return (
                 <SidebarMenuButton
                     isActive={dataItem.value === "about"}
-                    onMouseUp={() => openWindow(dataItem.value)}
+                    onPointerUp={(e) => {
+                        e.stopPropagation();
+                        openWindow(dataItem.value);
+                    }}
                     className="gap-1"
                 >
                     <Icon
@@ -258,9 +264,10 @@ function Header() {
                     <Button
                         variant="link"
                         className="w-fit px-0 text-accent/80 underline hover:text-accent"
-                        onMouseUp={() =>
-                            openWindow(APP_REGISTRY_NAMES.projects)
-                        }
+                        onPointerUp={(e) => {
+                            e.stopPropagation();
+                            openWindow(APP_REGISTRY_NAMES.projects);
+                        }}
                     >
                         View Projects
                     </Button>
@@ -283,7 +290,10 @@ function Details({
 
                 <h2
                     className="relative w-fit pb-2 text-accent/80 hover:cursor-pointer"
-                    onMouseUp={() => setExplorerTab("experience")}
+                    onPointerUp={(e) => {
+                        e.stopPropagation();
+                        setExplorerTab("experience");
+                    }}
                 >
                     Experience & Skills
                 </h2>
@@ -360,7 +370,10 @@ function SkillBox({
             <Button
                 variant="ghost"
                 className="absolute -top-3 right-4 h-fit rounded bg-[#1e1e1e] p-0 text-accent/30 hover:bg-[#1e1e1e] hover:text-accent/50"
-                onMouseUp={() => setIsCollapsed((prev) => !prev)}
+                onPointerUp={(e) => {
+                    e.stopPropagation();
+                    setIsCollapsed((prev) => !prev);
+                }}
             >
                 [ {isCollapsed ? "show" : "hide"} ]
             </Button>
@@ -431,7 +444,10 @@ function Skills() {
                         experienceFilter === "Show All" &&
                             "text-accent underline"
                     )}
-                    onClick={() => setExperienceFilter("Show All")}
+                    onPointerUp={(e) => {
+                        e.stopPropagation();
+                        setExperienceFilter("Show All");
+                    }}
                 >
                     Show All
                 </Button>
@@ -445,7 +461,10 @@ function Skills() {
                             experienceFilter === experience &&
                                 "text-accent underline"
                         )}
-                        onClick={() => setExperienceFilter(experience)}
+                        onPointerUp={(e) => {
+                            e.stopPropagation();
+                            setExperienceFilter(experience);
+                        }}
                     >
                         {experience}
                     </Button>
@@ -505,7 +524,10 @@ function Projects() {
                 <Button
                     variant="secondary"
                     className="ml-1 h-7 rounded bg-[#2b7ccc] px-2 text-accent hover:bg-[#2b7ccc]/90"
-                    onMouseUp={() => openWindow(APP_REGISTRY_NAMES.projects)}
+                    onPointerUp={(e) => {
+                        e.stopPropagation();
+                        openWindow(APP_REGISTRY_NAMES.projects);
+                    }}
                 >
                     Projects
                 </Button>
