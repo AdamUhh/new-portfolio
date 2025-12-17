@@ -12,8 +12,8 @@ export function Loflo() {
                     <div className="space-y-3">
                         <h1 className="text-5xl font-bold">Loflo</h1>
                         <p className="text-lg text-accent/80">
-                            A clock app for extra monitors with world clocks,
-                            stopwatch, and timer functionality.
+                            A folder-based flashcard app where users can revise
+                            through digital flashcards.
                         </p>
                         <div className="flex gap-3">
                             <a
@@ -40,11 +40,11 @@ export function Loflo() {
                     {/* Preview Image */}
                     <div className="overflow-hidden rounded-lg border border-[#3e3e42] bg-[#252526]">
                         <FallbackImage
-                            src="/image-not-found.webp"
+                            src="/projects/loflo.gif"
                             alt="Clock Hub Interface"
                             width={0}
                             height={0}
-                            className="h-64 w-full object-cover"
+                            className="aspect-video w-full object-cover"
                         />
                     </div>
 
@@ -54,13 +54,10 @@ export function Loflo() {
                             Why I Made It
                         </h2>
                         <p className="leading-relaxed text-accent/80">
-                            I have a second monitor that usually sits idle, and
-                            I wanted to put it to use. Rather than just
-                            displaying the desktop, I built Clock Hub to make it
-                            actually useful—tracking multiple timezones for
-                            remote work or friend timezones, timing productivity
-                            sessions, and keeping an eye on the time on the side
-                            without cluttering my main workspace.
+                            At the time, I wanted to learn about NextJS v14, and
+                            thought that building a simple flashcard app would
+                            be perfect for learning the framework while still
+                            shipping something relatively useful.
                         </p>
                     </section>
 
@@ -71,18 +68,29 @@ export function Loflo() {
                             <li className="flex items-center gap-2">
                                 <span className="mt-1 text-[#0a84c8]">•</span>
                                 <span>
-                                    Display multiple world clocks/timezones.
+                                    Organises flashcards into folders for
+                                    structured learning.
                                 </span>
                             </li>
                             <li className="flex items-center gap-2">
                                 <span className="mt-1 text-[#0a84c8]">•</span>
-                                <span>Stopwatch to track task timings.</span>
+                                <span>
+                                    Allows users to create, edit, and review
+                                    digital flashcards.
+                                </span>
                             </li>
                             <li className="flex items-center gap-2">
                                 <span className="mt-1 text-[#0a84c8]">•</span>
                                 <span>
-                                    Clean, minimal interface for secondary
-                                    displays.
+                                    Offers filters to quickly find what you
+                                    need.
+                                </span>
+                            </li>
+                            <li className="flex items-center gap-2">
+                                <span className="mt-1 text-[#0a84c8]">•</span>
+                                <span>
+                                    Supports accessibility with text-to-speech
+                                    functionality.
                                 </span>
                             </li>
                         </ul>
@@ -92,28 +100,32 @@ export function Loflo() {
                     <section className="space-y-3">
                         <h2 className="text-2xl font-semibold">Challenges</h2>
                         <p className="leading-relaxed text-accent/80">
-                            Not really difficult to make, but I suppose the
-                            biggest challenge was keeping the clock updates
-                            smooth and performant, even working when in
-                            hibernation.
+                            Styling and theming turned out to be trickier than
+                            expected, and after some experimentation, a minimal
+                            design felt like the best fit. Still, it felt too
+                            bare, and I needed to improve the UX and
+                            quality-of-life - I used the app daily and noticed
+                            area that could be smoother, adding features like
+                            bookmarks, text-to-speech, subfolders, filters, etc.
+                            that weren&apos;t part of the original plan.
                         </p>
                     </section>
 
                     {/* Tech Stack */}
-                    <section className="space-y-3">
-                        <h2 className="text-2xl font-semibold">Tech Stack</h2>
-                        <div className="flex flex-wrap gap-2">
-                            <span className="rounded border border-[#3e3e42] bg-[#252526] px-3 py-1.5 text-sm">
-                                SvelteKit
-                            </span>
-                            <span className="rounded border border-[#3e3e42] bg-[#252526] px-3 py-1.5 text-sm">
-                                TypeScript
-                            </span>
-                            <span className="rounded border border-[#3e3e42] bg-[#252526] px-3 py-1.5 text-sm">
-                                Tailwind CSS
-                            </span>
-                        </div>
-                    </section>
+                    {/* <section className="space-y-3"> */}
+                    {/*     <h2 className="text-2xl font-semibold">Tech Stack</h2> */}
+                    {/*     <div className="flex flex-wrap gap-2"> */}
+                    {/*         <span className="rounded border border-[#3e3e42] bg-[#252526] px-3 py-1.5 text-sm"> */}
+                    {/*             SvelteKit */}
+                    {/*         </span> */}
+                    {/*         <span className="rounded border border-[#3e3e42] bg-[#252526] px-3 py-1.5 text-sm"> */}
+                    {/*             TypeScript */}
+                    {/*         </span> */}
+                    {/*         <span className="rounded border border-[#3e3e42] bg-[#252526] px-3 py-1.5 text-sm"> */}
+                    {/*             Tailwind CSS */}
+                    {/*         </span> */}
+                    {/*     </div> */}
+                    {/* </section> */}
                 </div>
             </div>
         </div>

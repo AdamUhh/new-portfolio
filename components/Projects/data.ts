@@ -10,6 +10,9 @@ export enum TagType {
     NextJS = "NextJS",
     Typescript = "Typescript",
     AWS = "AWS",
+    DrizzleORM = "DrizzleOrm",
+    TursoDB = "TursoDB",
+    CockroachDB = "CockroachDB",
 }
 
 interface TagConfig {
@@ -24,6 +27,9 @@ export const tagConfigs: Record<TagType, TagConfig> = {
     [TagType.NextJS]: { bgColor: "#000000" },
     [TagType.Typescript]: { bgColor: "#3178c6" },
     [TagType.AWS]: { bgColor: "#ff9900", color: "#000000" },
+    [TagType.DrizzleORM]: { bgColor: "#c6f754", color: "#000000" },
+    [TagType.TursoDB]: { bgColor: "#4ff8d2", color: "#000000" },
+    [TagType.CockroachDB]: { bgColor: "#6933ff" },
 };
 
 export const projects: {
@@ -34,27 +40,40 @@ export const projects: {
     component: React.ComponentType<ProjectProps>;
 }[] = [
     {
-        title: "Clock Hub",
+        title: "Headless Dashboard",
         description:
-            "A clock app meant for extra monitors, equipped with a stopwatch and international clocks.",
-        imageSrc: "/image-not-found.webp",
-        tags: [TagType.SideProject, TagType.SvelteKit],
-        component: ClockHub,
+            "A headless e-commerce dashboard that replicates core features of Shopify.",
+        imageSrc: "/projects/headless-dashboard.webp",
+        tags: [
+            TagType.Work,
+            TagType.NextJS,
+            TagType.Typescript,
+            TagType.AWS,
+            TagType.DrizzleORM,
+            TagType.CockroachDB,
+        ],
+        component: HeadlessDashboard,
     },
     {
         title: "LoFlo",
         description:
-            "A folder-like flashcard app where users can learn through digital flashcards.",
-        imageSrc: "/image-not-found.webp",
-        tags: [TagType.SideProject, TagType.NextJS, TagType.Typescript],
+            "A folder-like flashcard app where users can revise through digital flashcards.",
+        imageSrc: "/projects/loflo.gif",
+        tags: [
+            TagType.SideProject,
+            TagType.NextJS,
+            TagType.Typescript,
+            TagType.DrizzleORM,
+            TagType.TursoDB,
+        ],
         component: Loflo,
     },
     {
-        title: "Headless Dashboard",
+        title: "Clock Hub",
         description:
-            "A headless e-commerce dashboard that replicates core features of Shopify.",
-        imageSrc: "/image-not-found.webp",
-        tags: [TagType.Work, TagType.NextJS, TagType.Typescript, TagType.AWS],
-        component: HeadlessDashboard,
+            "A clock app meant for extra monitors, equipped with a stopwatch and international clocks.",
+        imageSrc: "/projects/clock-hub.gif",
+        tags: [TagType.SideProject, TagType.SvelteKit],
+        component: ClockHub,
     },
 ] as const;

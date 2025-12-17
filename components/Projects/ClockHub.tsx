@@ -40,11 +40,11 @@ export function ClockHub() {
                     {/* Preview Image */}
                     <div className="overflow-hidden rounded-lg border border-[#3e3e42] bg-[#252526]">
                         <FallbackImage
-                            src="/image-not-found.webp"
+                            src="/projects/clock-hub.gif"
                             alt="Clock Hub Interface"
                             width={0}
                             height={0}
-                            className="h-64 w-full object-cover"
+                            className="aspect-video w-full object-cover"
                         />
                     </div>
 
@@ -100,20 +100,14 @@ export function ClockHub() {
                     </section>
 
                     {/* Tech Stack */}
-                    <section className="space-y-3">
-                        <h2 className="text-2xl font-semibold">Tech Stack</h2>
-                        <div className="flex flex-wrap gap-2">
-                            <span className="rounded border border-[#3e3e42] bg-[#252526] px-3 py-1.5 text-sm">
-                                SvelteKit
-                            </span>
-                            <span className="rounded border border-[#3e3e42] bg-[#252526] px-3 py-1.5 text-sm">
-                                TypeScript
-                            </span>
-                            <span className="rounded border border-[#3e3e42] bg-[#252526] px-3 py-1.5 text-sm">
-                                Tailwind CSS
-                            </span>
-                        </div>
-                    </section>
+                    {/* <section className="space-y-3"> */}
+                    {/*     <h2 className="text-2xl font-semibold">Tech Stack</h2> */}
+                    {/*     <div className="flex flex-wrap gap-2"> */}
+                    {/*         <span className="rounded border border-[#3e3e42] bg-[#252526] px-3 py-1.5 text-sm"> */}
+                    {/*             SvelteKit */}
+                    {/*         </span> */}
+                    {/*     </div> */}
+                    {/* </section> */}
                 </div>
             </div>
         </div>
