@@ -54,7 +54,7 @@ function ContactInformation() {
     };
 
     return (
-        <div className="mx-auto w-full max-w-lg rounded-lg bg-[#191919] p-4 shadow-[0_0_0_1px_rgba(255,255,255,0.04)]">
+        <div className="mx-auto w-full max-w-lg animate-fade-in-up rounded-lg bg-[#191919] p-4 shadow-[0_0_0_1px_rgba(255,255,255,0.04)]">
             <div className="mb-6">
                 <div className="flex items-center gap-3">
                     <div className="flex size-10 items-center justify-center rounded-lg bg-accent/10 text-accent/80">
@@ -124,7 +124,7 @@ function ContactInformation() {
                         <Link
                             href={GITHUB_LINK}
                             target="_blank"
-                            className="flex items-center gap-2 text-[#A6E3A1] underline-offset-4 hover:text-accent hover:underline"
+                            className="flex items-center gap-2 text-[#A6E3A1] underline-offset-4 hover:underline"
                         >
                             <GithubIcon className="size-4" />
                             &apos;{GITHUB_LINK}&apos;
@@ -166,7 +166,7 @@ function ContactForm() {
     }
 
     return (
-        <div className="mx-auto w-full max-w-lg rounded-lg bg-[#191919] p-4 shadow-[0_0_0_1px_rgba(255,255,255,0.04)]">
+        <div className="mx-auto w-full max-w-lg animate-fade-in-up rounded-lg bg-[#191919] p-4 shadow-[0_0_0_1px_rgba(255,255,255,0.04)]">
             <div className="mb-8 flex items-center gap-3">
                 <div className="flex size-10 items-center justify-center rounded-lg bg-accent/10 text-accent/80">
                     <SendIcon className="size-5" />
@@ -324,7 +324,7 @@ function ContactForm() {
 /* Window Wrapper                      */
 /* ---------------------------------- */
 
-export function ContactWindow({ windowId }: WindowProps) {
+export function ContactWindow({}: WindowProps) {
     return (
         <div className="flex size-full flex-col overflow-hidden bg-[#252526] text-white">
             <div className="flex flex-1 flex-col gap-6 overflow-y-auto p-6">

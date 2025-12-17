@@ -122,7 +122,7 @@ function WindowBase({ window: w }: WindowComponentProps) {
                         } as React.CSSProperties
                     }
                     className={cn(
-                        "flex flex-col overflow-hidden bg-white shadow-xl",
+                        "flex flex-col overflow-hidden bg-neutral-900 shadow-xl",
 
                         // size via variables
                         "z-(--window-z) h-(--window-h) w-(--window-w)",
@@ -197,7 +197,7 @@ function WindowBase({ window: w }: WindowComponentProps) {
                     </div>
 
                     <div
-                        className="flex-1 overflow-auto bg-gray-50"
+                        className="flex-1 overflow-hidden"
                         onMouseUp={handleFocus}
                     >
                         <WindowContent windowId={w.id} />

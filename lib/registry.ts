@@ -27,7 +27,7 @@ export const APP_REGISTRY: Record<string, AppDefinition> = {
     },
     [APP_REGISTRY_NAMES.terminal]: {
         id: APP_REGISTRY_NAMES.terminal,
-        title: "Bash",
+        title: "Terminal",
         titlebarIcon: mdiConsole,
         isTitleMdiIcon: true,
         component: TerminalWindow,

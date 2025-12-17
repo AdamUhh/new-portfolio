@@ -15,7 +15,7 @@ import {
 import { WindowProps } from "@/lib/types";
 
 import { FallbackImage } from "../FallbackImage";
-import { TagType, projects, tagConfigs } from "./data";
+import { TagType, projectsData, tagConfigs } from "./data";
 
 function ProjectCard({
     title,
@@ -80,19 +80,15 @@ function ProjectCard({
     );
 }
 
-export function ProjectsWindow({ windowId }: WindowProps) {
-    const [selectedIndex, setSelectedIndex] = useState<number | null>(null);
+export function ProjectsWindow({}: WindowProps) {
+    const [selectedKey, setSelectedKey] = useState<string | null>(null);
 
-    const selectedProject =
-        selectedIndex !== null ? projects[selectedIndex] : null;
+    const selectedProject = selectedKey ? projectsData[selectedKey] : null;
     const ProjectComponent = selectedProject?.component;
 
     const handleProjectSelect = (value: string) => {
-        const index = projects.findIndex(
-            (p) => p.title.toLowerCase().replace(/\s+/g, "-") === value
-        );
-        if (index !== -1) {
-            setSelectedIndex(index);
+        if (projectsData[value]) {
+            setSelectedKey(value);
         }
     };
 
@@ -103,8 +99,8 @@ export function ProjectsWindow({ windowId }: WindowProps) {
                 {/* Navigation buttons */}
                 <div className="flex items-center gap-1">
                     <Button
-                        onClick={() => setSelectedIndex(null)}
-                        disabled={selectedIndex === null}
+                        onClick={() => setSelectedKey(null)}
+                        disabled={selectedKey === null}
                         variant="ghost"
                         size="sm"
                         className="h-8 w-8 p-0 text-accent/60 hover:bg-[#2d2d2d] hover:text-accent disabled:opacity-30"
@@ -143,13 +139,7 @@ export function ProjectsWindow({ windowId }: WindowProps) {
                 <div className="flex flex-1 items-center gap-2 rounded-md bg-[#2d2d2d] px-4 py-1.5">
                     <InfoIcon className="size-4 text-accent/60" />
                     <Select
-                        value={
-                            selectedIndex !== null
-                                ? projects[selectedIndex].title
-                                      .toLowerCase()
-                                      .replace(/\s+/g, "-")
-                                : ""
-                        }
+                        value={selectedKey || ""}
                         onValueChange={handleProjectSelect}
                     >
                         <SelectTrigger className="h-4! flex-1 border-0 bg-transparent p-0 text-sm text-accent/80 shadow-none focus:ring-0!">
@@ -159,17 +149,9 @@ export function ProjectsWindow({ windowId }: WindowProps) {
                             position="popper"
                             className="-left-3 rounded"
                         >
-                            {projects.map((project) => (
-                                <SelectItem
-                                    key={project.title}
-                                    value={project.title
-                                        .toLowerCase()
-                                        .replace(/\s+/g, "-")}
-                                >
-                                    projects/
-                                    {project.title
-                                        .toLowerCase()
-                                        .replace(/\s+/g, "-")}
+                            {Object.keys(projectsData).map((key) => (
+                                <SelectItem key={key} value={key}>
+                                    projects/{key}
                                 </SelectItem>
                             ))}
                         </SelectContent>
@@ -183,14 +165,14 @@ export function ProjectsWindow({ windowId }: WindowProps) {
                     <ProjectComponent />
                 ) : (
                     <div className="grid h-fit w-full animate-fade-in-up grid-cols-[repeat(auto-fit,minmax(16rem,20rem))] justify-center gap-4 p-4">
-                        {projects.map((project, index) => (
+                        {Object.entries(projectsData).map(([key, project]) => (
                             <ProjectCard
-                                key={project.title}
+                                key={key}
                                 title={project.title}
                                 description={project.description}
                                 imageSrc={project.imageSrc}
                                 tags={project.tags}
-                                onClick={() => setSelectedIndex(index)}
+                                onClick={() => setSelectedKey(key)}
                             />
                         ))}
                     </div>

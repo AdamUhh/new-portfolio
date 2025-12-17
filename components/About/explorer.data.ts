@@ -1,3 +1,4 @@
+import { CV_LINK, GITHUB_LINK } from "@/lib/link-constants";
 import { APP_REGISTRY_NAMES } from "@/lib/registry-constants";
 
 type TreeLeaf = {
@@ -32,10 +33,10 @@ export const explorerData = {
             { name: "links" },
             {
                 name: "github.json",
-                value: "https://github.com/AdamUhh",
+                value: GITHUB_LINK,
                 type: "link",
             },
-            { name: "cv.tsx", value: "https://cv.adamuhh.dev", type: "link" },
+            { name: "cv.tsx", value: CV_LINK, type: "link" },
         ],
     ],
 };

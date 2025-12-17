@@ -223,6 +223,10 @@
         @apply bg-background text-foreground;
     }
 
+    .react-resizable-handle {
+        @apply opacity-0!;
+    }
+
     .react-resizable-handle-e,
     .react-resizable-handle-w {
         @apply top-2! m-0! h-[calc(100%-1rem)]! w-1!;

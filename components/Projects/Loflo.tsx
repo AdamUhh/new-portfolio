@@ -41,7 +41,7 @@ export function Loflo() {
                     <div className="overflow-hidden rounded-lg border border-[#3e3e42] bg-[#252526]">
                         <FallbackImage
                             src="/projects/loflo.gif"
-                            alt="Clock Hub Interface"
+                            alt="Loflo app Interface"
                             width={0}
                             height={0}
                             className="aspect-video w-full object-cover"

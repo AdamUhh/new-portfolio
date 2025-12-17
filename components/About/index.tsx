@@ -708,14 +708,14 @@ function ExplorerBar() {
                             </TabsList>
                             <TabsContent
                                 value="about"
-                                className="space-y-6 overflow-y-auto px-6 py-4"
+                                className="animate-fade-in-up space-y-6 overflow-y-auto px-6 py-4"
                             >
                                 <Header />
                                 <Details setExplorerTab={setExplorerTab} />
                             </TabsContent>
                             <TabsContent
                                 value="experience"
-                                className="space-y-6 overflow-y-auto px-6 py-4"
+                                className="animate-fade-in-up space-y-6 overflow-y-auto px-6 py-4"
                             >
                                 <Skills />
                                 <Projects />
