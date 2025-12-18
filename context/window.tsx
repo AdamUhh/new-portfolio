@@ -26,6 +26,35 @@ export function WindowProvider({ children }: { children: React.ReactNode }) {
     const nextWindowId = useRef(1);
     const nextZIndex = useRef(1);
 
+    const getIsMobile = () => {
+        if (typeof window === "undefined") return false;
+        return window.innerWidth <= 768;
+    };
+
+    const [isMobile, setIsMobile] = useState<boolean>(getIsMobile);
+
+    useEffect(() => {
+        const onResize = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
+
+        window.addEventListener("resize", onResize);
+        return () => window.removeEventListener("resize", onResize);
+    }, []);
+
+    const getMobileSize = useCallback(() => {
+        if (typeof window === "undefined") {
+            return { width: 0, height: 0 };
+        }
+
+        const { innerWidth, innerHeight } = window;
+
+        return {
+            width: innerWidth,
+            height: innerHeight * 0.75,
+        };
+    }, []);
+
     // Sync windows from URL
     useEffect(() => {
         // Parse app IDs from query params
@@ -82,13 +111,15 @@ export function WindowProvider({ children }: { children: React.ReactNode }) {
                         appId,
                         isFocused: false,
                         isMinimized: false,
-                        isExpanded: false,
+                        isExpanded: isMobile,
                         zIndex: nextZIndex.current++,
-                        position: {
-                            x: 100 + newWindows.length * 50,
-                            y: 100 + newWindows.length * 50,
-                        },
-                        size: app.defaultSize,
+                        position: isMobile
+                            ? { x: 0, y: 0 }
+                            : {
+                                  x: 100 + newWindows.length * 50,
+                                  y: 100 + newWindows.length * 50,
+                              },
+                        size: isMobile ? getMobileSize() : app.defaultSize,
                     });
                 }
             });
@@ -184,13 +215,15 @@ export function WindowProvider({ children }: { children: React.ReactNode }) {
                         appId,
                         isFocused: true,
                         isMinimized: false,
-                        isExpanded: false,
+                        isExpanded: isMobile,
                         zIndex: nextZIndex.current++,
-                        position: {
-                            x: 100 + prev.length * 50,
-                            y: 100 + prev.length * 50,
-                        },
-                        size: app.defaultSize,
+                        position: isMobile
+                            ? { x: 0, y: 0 }
+                            : {
+                                  x: 100 + prev.length * 50,
+                                  y: 100 + prev.length * 50,
+                              },
+                        size: isMobile ? getMobileSize() : app.defaultSize,
                     },
                 ];
             });
@@ -201,7 +234,7 @@ export function WindowProvider({ children }: { children: React.ReactNode }) {
                 updateUrl(pathname, appId, true, app.allowMultiple);
             }
         },
-        [pathname, updateUrl]
+        [getMobileSize, isMobile, pathname, updateUrl]
     );
 
     const closeWindow = useCallback(

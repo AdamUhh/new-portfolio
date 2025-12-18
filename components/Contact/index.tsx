@@ -82,7 +82,7 @@ function ContactInformation() {
                         </span>
                     </div>
 
-                    <div className="flex items-center gap-3">
+                    <div className="flex flex-wrap items-center gap-3">
                         <span className="text-gray-500">const</span>
                         <span className="font-semibold text-[#89B4FA]">
                             email
@@ -116,7 +116,7 @@ function ContactInformation() {
                         </Tooltip>
                     </div>
 
-                    <div className="flex items-center gap-3">
+                    <div className="flex flex-wrap items-center gap-3">
                         <span className="text-gray-500">const</span>
                         <span className="font-semibold text-[#89B4FA]">
                             github
@@ -166,6 +166,16 @@ function ContactForm() {
         }
     }
 
+    const resetViewport = () => {
+        const meta = document.querySelector('meta[name="viewport"]');
+        if (!meta) return;
+
+        meta.setAttribute(
+            "content",
+            "width=device-width, initial-scale=1, maximum-scale=1"
+        );
+    };
+
     return (
         <div className="mx-auto w-full max-w-lg animate-fade-in-up rounded-lg bg-[#191919] p-4 shadow-[0_0_0_1px_rgba(255,255,255,0.04)]">
             <div className="mb-8 flex items-center gap-3">
@@ -186,6 +196,7 @@ function ContactForm() {
                                 <FieldLabel>Name*</FieldLabel>
                                 <Input
                                     {...field}
+                                    onBlur={resetViewport}
                                     placeholder="Elon"
                                     className="border-accent/10 bg-[#1c1c1c] text-white placeholder:text-gray-500 focus-visible:border-accent/30 focus-visible:ring-0 focus-visible:ring-accent/30"
                                 />
@@ -204,6 +215,7 @@ function ContactForm() {
                                 <FieldLabel>Email*</FieldLabel>
                                 <Input
                                     {...field}
+                                    onBlur={resetViewport}
                                     type="email"
                                     placeholder="elon@tesla.com"
                                     className="border-accent/10 bg-[#1c1c1c] text-white placeholder:text-gray-500 focus-visible:border-accent/30 focus-visible:ring-0 focus-visible:ring-accent/30"
@@ -224,6 +236,7 @@ function ContactForm() {
                                 <FieldLabel>Phone</FieldLabel>
                                 <Input
                                     {...field}
+                                    onBlur={resetViewport}
                                     type="tel"
                                     placeholder="+1 555 123 4567"
                                     className="border-accent/10 bg-[#1c1c1c] text-white placeholder:text-gray-500 focus-visible:border-accent/30 focus-visible:ring-0 focus-visible:ring-accent/30"
@@ -243,6 +256,7 @@ function ContactForm() {
                                 <FieldLabel>Company</FieldLabel>
                                 <Input
                                     {...field}
+                                    onBlur={resetViewport}
                                     placeholder="Tesla"
                                     className="border-accent/10 bg-[#1c1c1c] text-white placeholder:text-gray-500 focus-visible:border-accent/30 focus-visible:ring-0 focus-visible:ring-accent/30"
                                 />
@@ -261,6 +275,7 @@ function ContactForm() {
                                 <InputGroup className="border-accent/10 bg-[#1c1c1c] ring-0! has-[[data-slot=input-group-control]:focus-visible]:border-accent/30">
                                     <InputGroupTextarea
                                         {...field}
+                                        onBlur={resetViewport}
                                         rows={6}
                                         placeholder="Tell me about your project, idea, or just say hello"
                                         className="text-white placeholder:text-gray-500"
@@ -331,7 +346,7 @@ function ContactForm() {
 export function ContactWindow({}: WindowProps) {
     return (
         <div className="flex size-full flex-col overflow-hidden bg-[#252526] text-white">
-            <div className="flex flex-1 flex-col gap-6 overflow-y-auto p-6">
+            <div className="flex flex-1 flex-col gap-6 overflow-y-auto p-3 tablet:p-6">
                 <ContactInformation />
                 <ContactForm />
             </div>

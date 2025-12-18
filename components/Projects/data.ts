@@ -48,7 +48,7 @@ export const projectsData: Record<
         title: "Headless Dashboard",
         description:
             "A headless e-commerce dashboard that replicates core features of Shopify.",
-        imageSrc: "/projects/headless-dashboard.webp",
+        imageSrc: "/projects/headless-dashboard.gif",
         tags: [
             TagType.Work,
             TagType.NextJS,

@@ -110,8 +110,8 @@ export function Taskbar() {
     );
 
     return (
-        <footer className="fixed bottom-0 left-0 grid h-11 w-screen grid-cols-3 bg-gray-400">
-            <div className="not-tablet:hidden" />
+        <footer className="fixed bottom-0 left-0 grid h-11 w-screen grid-cols-3 bg-gray-400 not-tablet-xl:grid-cols-1">
+            <div className="not-tablet-xl:hidden" />
             <ul className="mx-auto flex h-full w-fit flex-nowrap items-center justify-center gap-1">
                 <Icon path={mdiMicrosoft} className="size-9" />
                 <TaskbarVSCode win={aboutWindow} />
@@ -119,7 +119,7 @@ export function Taskbar() {
                     <TaskbarItem key={win.id} win={win} />
                 ))}
             </ul>
-            <ul className="my-auto ml-auto grid h-fit grid-cols-[1fr_1fr_1fr_1fr_100px] items-center gap-4">
+            <ul className="my-auto ml-auto grid h-fit grid-cols-[1fr_1fr_1fr_1fr_100px] items-center gap-4 not-tablet-xl:hidden">
                 <Icon path={mdiChevronUp} className="size-4" />
                 <Icon path={mdiBattery90} className="size-4 rotate-90" />
                 <button title="Wifi">

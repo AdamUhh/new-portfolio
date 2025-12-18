@@ -152,19 +152,29 @@ export function TerminalWindow({}: WindowProps) {
         }
     };
 
+    const resetViewport = () => {
+        const meta = document.querySelector('meta[name="viewport"]');
+        if (!meta) return;
+
+        meta.setAttribute(
+            "content",
+            "width=device-width, initial-scale=1, maximum-scale=1"
+        );
+    };
+
     return (
         <div className="flex size-full flex-col overflow-hidden bg-[#191919] text-white">
             <div className="flex flex-[1_1_0] overflow-x-hidden overflow-y-auto">
                 <div
                     ref={terminalRef}
-                    className="size-full overflow-y-auto p-4 font-mono text-sm"
-                    onPointerUp={(e) => {
-                        e.stopPropagation();
+                    className="size-full overflow-y-auto p-4 font-mono text-base tablet:text-sm"
+                    onPointerUp={() => {
+                        // e.stopPropagation(); // this disables window focus
                         inputRef.current?.focus();
                     }}
                 >
                     {history.map((item, idx) => (
-                        <div key={idx} className="mb-1">
+                        <div key={idx} className="mb-1 not-tablet-xl:text-sm">
                             {item.type === "input" ? (
                                 <div className="text-green-400">
                                     <span className="text-blue-400">
@@ -188,6 +198,7 @@ export function TerminalWindow({}: WindowProps) {
                             ref={inputRef}
                             type="text"
                             value={input}
+                            onBlur={resetViewport}
                             onChange={(e) => setInput(e.target.value)}
                             onKeyDown={handleKeyDown}
                             className="flex-1 bg-transparent text-green-400 caret-green-400 outline-none"

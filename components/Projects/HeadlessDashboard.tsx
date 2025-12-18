@@ -34,22 +34,13 @@ export function HeadlessDashboard() {
 
                     {/* Preview Image */}
                     <div className="overflow-hidden rounded-lg border border-[#3e3e42] bg-[#252526]">
-                        <video
-                            width="0"
-                            height="0"
+                        <FallbackImage
+                            src="/projects/headless-dashboard.gif"
+                            alt="Loflo app Interface"
+                            width={0}
+                            height={0}
                             className="aspect-video w-full object-cover"
-                            controls
-                            preload="none"
-                        >
-                            <source
-                                src="/projects/headless-dashboard.mp4"
-                                type="video/mp4"
-                            />
-                            Your browser does not support the video tag.
-                        </video>
-                        <p className="p-1 text-sm text-accent/80">
-                            Please view the github for more videos.
-                        </p>
+                        />
                     </div>
 
                     {/* Why I Made It */}

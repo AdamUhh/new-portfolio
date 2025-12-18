@@ -206,7 +206,7 @@ function Tree({
 function Header() {
     const { openWindow } = useWindowManager();
     return (
-        <div className="flex gap-4">
+        <div className="flex gap-4 not-tablet-xl:flex-col">
             <FallbackImage
                 src="/logo_600x600.png"
                 alt="AdamUhh Logo"
@@ -436,7 +436,7 @@ function Skills() {
                     before, and my competency with them
                 </p>
             </div>
-            <div className="relative grid w-full grid-cols-3 justify-center space-x-2">
+            <div className="relative grid w-full grid-cols-3 justify-center space-x-2 not-tablet-xl:grid-cols-2">
                 <Button
                     variant="link"
                     className={cn(
