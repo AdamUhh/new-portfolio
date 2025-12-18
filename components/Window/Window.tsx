@@ -15,7 +15,7 @@ import "react-resizable/css/styles.css";
 import { Button } from "@/shadcn/button";
 
 import { getApp } from "@/lib/registry";
-import { WindowMetadata } from "@/lib/types";
+import { WindowMetadata } from "@/lib/type-window";
 import { cn } from "@/lib/utils";
 
 import { useWindowManager } from "@/context/window";
@@ -206,7 +206,7 @@ function WindowBase({ window: w }: WindowComponentProps) {
                     </div>
 
                     <div
-                        className="flex-1 overflow-auto"
+                        className="@container flex-1 overflow-auto"
                         onPointerUp={(e) => {
                             e.stopPropagation();
                             handleFocus();

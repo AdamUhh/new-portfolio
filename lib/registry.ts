@@ -13,8 +13,8 @@ import { ProjectsWindow } from "@/components/Projects";
 import { TerminalWindow } from "@/components/Terminal";
 import { VSCodeIcon } from "@/components/svg/vscode";
 
-import { APP_REGISTRY_NAMES } from "./registry-constants";
-import { AppDefinition } from "./types";
+import { APP_REGISTRY_NAMES } from "./constants-registry";
+import { AppDefinition } from "./type-window";
 
 export const APP_REGISTRY: Record<string, AppDefinition> = {
     [APP_REGISTRY_NAMES.about]: {

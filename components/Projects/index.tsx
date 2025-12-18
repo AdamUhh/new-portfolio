@@ -1,7 +1,7 @@
 "use client";
 
-import { ArrowLeftIcon, ArrowRightIcon, InfoIcon } from "lucide-react";
-import { useState } from "react";
+import { ArrowLeftIcon, InfoIcon } from "lucide-react";
+import { PointerEvent, useState } from "react";
 
 import { Button } from "@/shadcn/button";
 import {
@@ -11,8 +11,9 @@ import {
     SelectTrigger,
     SelectValue,
 } from "@/shadcn/select";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/shadcn/tooltip";
 
-import { WindowProps } from "@/lib/types";
+import { WindowProps } from "@/lib/type-window";
 
 import { FallbackImage } from "../FallbackImage";
 import { TagType, projectsData, tagConfigs } from "./data";
@@ -95,42 +96,43 @@ export function ProjectsWindow({}: WindowProps) {
         }
     };
 
+    const returnToProjects = (e: PointerEvent) => {
+        e.stopPropagation();
+        setSelectedKey(null);
+    };
+
     return (
         <div className="flex size-full flex-col overflow-hidden bg-[#191919] text-accent">
             {/* Chrome-style Header */}
             <div className="flex items-center gap-2 border-b border-[#2d2d2d] bg-[#202124] px-3 py-2">
                 {/* Navigation buttons */}
                 <div className="flex items-center gap-1">
-                    <Button
-                        onPointerUp={(e) => {
-                            e.stopPropagation();
-                            setSelectedKey(null);
-                        }}
-                        disabled={selectedKey === null}
-                        variant="ghost"
-                        size="sm"
-                        className="h-8 w-8 p-0 text-accent/60 hover:bg-[#2d2d2d] hover:text-accent disabled:opacity-30"
-                    >
-                        <ArrowLeftIcon />
-                    </Button>
-                    {/* <Button */}
-                    {/*     variant="ghost" */}
-                    {/*     size="sm" */}
-                    {/*     disabled */}
-                    {/*     className="h-8 w-8 p-0 text-accent/60 hover:bg-[#2d2d2d] hover:text-accent disabled:opacity-30" */}
-                    {/* > */}
-                    {/*     <ArrowRightIcon /> */}
-                    {/* </Button> */}
+                    <Tooltip>
+                        <TooltipTrigger asChild>
+                            <Button
+                                onPointerUp={returnToProjects}
+                                disabled={selectedKey === null}
+                                variant="ghost"
+                                size="sm"
+                                className="h-8 w-8 p-0 text-accent/70 hover:bg-[#2d2d2d] hover:text-accent disabled:opacity-30"
+                            >
+                                <ArrowLeftIcon />
+                            </Button>
+                        </TooltipTrigger>
+                        <TooltipContent side="right" className="dark">
+                            Go back to projects
+                        </TooltipContent>
+                    </Tooltip>
                 </div>
 
                 {/* Address bar / Project selector */}
                 <div className="flex flex-1 items-center gap-2 rounded-md bg-[#2d2d2d] px-4 py-1.5">
-                    <InfoIcon className="size-4 text-accent/60" />
+                    <InfoIcon className="size-4 text-accent/70" />
                     <Select
                         value={selectedKey || ""}
                         onValueChange={handleProjectSelect}
                     >
-                        <SelectTrigger className="h-4! flex-1 border-0 bg-transparent p-0 text-sm text-accent/80 shadow-none focus:ring-0!">
+                        <SelectTrigger className="h-4! flex-1 border-0 bg-transparent p-0 text-sm text-accent/80 shadow-none focus:ring-0! data-placeholder:text-accent/70!">
                             <SelectValue placeholder="projects/" />
                         </SelectTrigger>
                         <SelectContent
@@ -150,7 +152,7 @@ export function ProjectsWindow({}: WindowProps) {
             {/* Content */}
             <div className="flex flex-[1_1_0] overflow-x-hidden overflow-y-auto">
                 {ProjectComponent ? (
-                    <ProjectComponent />
+                    <ProjectComponent returnToProjects={returnToProjects} />
                 ) : (
                     <div className="grid h-fit w-full animate-fade-in-up grid-cols-[repeat(auto-fit,minmax(16rem,20rem))] justify-center gap-4 p-4">
                         {Object.entries(projectsData).map(([key, project]) => (

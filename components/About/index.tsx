@@ -36,10 +36,10 @@ import {
 } from "@/components/ui/sidebar";
 
 import { calculateAgeParts } from "@/lib/calculate-age";
-import { getColorFromFileExt, getIconFromFileExt } from "@/lib/icon-utils";
-import { APP_REGISTRY_NAMES } from "@/lib/registry-constants";
-import { WindowProps } from "@/lib/types";
+import { APP_REGISTRY_NAMES } from "@/lib/constants-registry";
+import { WindowProps } from "@/lib/type-window";
 import { cn } from "@/lib/utils";
+import { getColorFromFileExt, getIconFromFileExt } from "@/lib/utils-icon";
 
 import { useWindowManager } from "@/context/window";
 
@@ -206,7 +206,7 @@ function Tree({
 function Header() {
     const { openWindow } = useWindowManager();
     return (
-        <div className="flex gap-4 not-tablet-xl:flex-col">
+        <div className="flex flex-col gap-4 @tablet-xl:flex-row">
             <FallbackImage
                 src="/logo_600x600.png"
                 alt="AdamUhh Logo"
@@ -283,7 +283,7 @@ function Details({
 }) {
     return (
         <div>
-            <div className="relative flex space-x-4 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-accent/20">
+            <div className="relative flex space-x-4 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-accent/10">
                 <h2 className="relative w-fit pb-2 after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-accent/80">
                     Details
                 </h2>
@@ -318,9 +318,9 @@ function Details({
                         </span>
                         . I like work that{" "}
                         <span className="text-accent">teaches me</span>{" "}
-                        something new; This includes{" "}
+                        something new, like taking over{" "}
                         <span className="text-accent">challenging tasks</span>,
-                        or things no one seems to want to do.{" "}
+                        or things someone would hesitate to wanna try.{" "}
                         <span className="text-accent">I just wanna learn.</span>
                     </p>
                 </div>
@@ -369,7 +369,7 @@ function SkillBox({
         <div className="relative flex min-w-72 flex-1 flex-col rounded-xl border-3 border-border/20 p-3 font-mono text-sm">
             <Button
                 variant="ghost"
-                className="absolute -top-3 right-4 h-fit rounded bg-[#1e1e1e] p-0 text-accent/30 hover:bg-[#1e1e1e] hover:text-accent/50"
+                className="absolute -top-3 right-4 h-fit rounded bg-[#1e1e1e] p-0 text-accent/30 hover:bg-[#1e1e1e] hover:text-accent/70"
                 onPointerUp={(e) => {
                     e.stopPropagation();
                     setIsCollapsed((prev) => !prev);
@@ -436,7 +436,7 @@ function Skills() {
                     before, and my competency with them
                 </p>
             </div>
-            <div className="relative grid w-full grid-cols-3 justify-center space-x-2 not-tablet-xl:grid-cols-2">
+            <div className="relative mx-auto grid w-full max-w-[550px] grid-cols-2 justify-center space-x-2 @tablet-xl:grid-cols-3">
                 <Button
                     variant="link"
                     className={cn(
@@ -520,7 +520,7 @@ function Projects() {
         <div>
             <h3 className="text-3xl">Projects</h3>
             <p className="text-accent/80">
-                Now that you&apos;ve seen my skills, check out my{" "}
+                Check out my{" "}
                 <Button
                     variant="secondary"
                     className="ml-1 h-7 rounded bg-[#2b7ccc] px-2 text-accent hover:bg-[#2b7ccc]/90"
@@ -547,7 +547,7 @@ function Experience() {
                             2022 - Present
                         </span>
                     </h4>
-                    <p className="text-sm text-accent/90">
+                    <p className="text-sm text-accent/80">
                         Full Stack Developer
                     </p>
                     <ul className="list-inside list-disc text-accent/70">
@@ -583,7 +583,7 @@ function Experience() {
                             2023 - 2025
                         </span>
                     </h4>
-                    <p className="text-sm text-accent/90">
+                    <p className="text-sm text-accent/80">
                         Lead Backend Developer
                     </p>
                     <ul className="list-inside list-disc text-accent/80">
@@ -621,7 +621,7 @@ function Experience() {
                             2019 - 2021
                         </span>
                     </h4>
-                    <p className="text-sm text-accent/90">
+                    <p className="text-sm text-accent/80">
                         Operations Executive
                     </p>
                     <ul className="list-inside list-disc text-accent/80">
@@ -737,11 +737,11 @@ function ExplorerBar() {
                             </TabsContent>
                             <TabsContent
                                 value="experience"
-                                className="animate-fade-in-up space-y-6 overflow-y-auto px-6 py-4"
+                                className="animate-fade-in-up space-y-6 overflow-y-auto px-6 py-4 pb-10"
                             >
                                 <Skills />
-                                <Projects />
                                 <Experience />
+                                <Projects />
                             </TabsContent>
                         </Tabs>
                     </div>

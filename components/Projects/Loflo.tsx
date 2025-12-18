@@ -1,10 +1,13 @@
-import { ExternalLinkIcon } from "lucide-react";
+import { ArrowLeftIcon, ExternalLinkIcon } from "lucide-react";
 
-import { LOFLO_LINK } from "@/lib/link-constants";
+import { Button } from "@/shadcn/button";
+
+import { LOFLO_LINK } from "@/lib/constants-link";
 
 import { FallbackImage } from "../FallbackImage";
+import { ProjectProps } from "./projects.type";
 
-export function Loflo() {
+export function Loflo({ returnToProjects }: ProjectProps) {
     return (
         <div className="flex size-full flex-col overflow-hidden bg-[#191919] text-accent">
             {/* Content */}
@@ -98,27 +101,38 @@ export function Loflo() {
                             design felt like the best fit. Still, it felt too
                             bare, and I needed to improve the UX and
                             quality-of-life - I used the app daily and noticed
-                            area that could be smoother, adding features like
+                            areas that could be smoother, adding features like
                             bookmarks, text-to-speech, subfolders, filters, etc.
                             that weren&apos;t part of the original plan.
                         </p>
                     </section>
 
                     {/* Tech Stack */}
-                    {/* <section className="space-y-3"> */}
-                    {/*     <h2 className="text-2xl font-semibold">Tech Stack</h2> */}
-                    {/*     <div className="flex flex-wrap gap-2"> */}
-                    {/*         <span className="rounded border border-[#3e3e42] bg-[#252526] px-3 py-1.5 text-sm"> */}
-                    {/*             SvelteKit */}
-                    {/*         </span> */}
-                    {/*         <span className="rounded border border-[#3e3e42] bg-[#252526] px-3 py-1.5 text-sm"> */}
-                    {/*             TypeScript */}
-                    {/*         </span> */}
-                    {/*         <span className="rounded border border-[#3e3e42] bg-[#252526] px-3 py-1.5 text-sm"> */}
-                    {/*             Tailwind CSS */}
-                    {/*         </span> */}
-                    {/*     </div> */}
-                    {/* </section> */}
+                    <section className="space-y-3">
+                        <h2 className="text-2xl font-semibold">Tech Stack</h2>
+                        <div className="flex flex-wrap gap-2">
+                            <span className="rounded border border-[#3e3e42] bg-[#252526] px-3 py-1.5 text-sm">
+                                NextJS
+                            </span>
+                            <span className="rounded border border-[#3e3e42] bg-[#252526] px-3 py-1.5 text-sm">
+                                TypeScript
+                            </span>
+                            <span className="rounded border border-[#3e3e42] bg-[#252526] px-3 py-1.5 text-sm">
+                                Drizzle ORM
+                            </span>
+                            <span className="rounded border border-[#3e3e42] bg-[#252526] px-3 py-1.5 text-sm">
+                                Turso DB
+                            </span>
+                        </div>
+                    </section>
+
+                    <Button
+                        onPointerUp={returnToProjects}
+                        className="rounded bg-[#0a84c8] hover:bg-[#0a84c8]/80"
+                    >
+                        <ArrowLeftIcon className="size-4" />
+                        View other projects
+                    </Button>
                 </div>
             </div>
         </div>

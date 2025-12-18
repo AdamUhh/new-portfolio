@@ -15,9 +15,9 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/shadcn/tooltip";
 import { Clock } from "@/components/Clock";
 import { VSCodeIcon } from "@/components/svg/vscode";
 
+import { APP_REGISTRY_NAMES } from "@/lib/constants-registry";
 import { getApp } from "@/lib/registry";
-import { APP_REGISTRY_NAMES } from "@/lib/registry-constants";
-import { WindowMetadata } from "@/lib/types";
+import { WindowMetadata } from "@/lib/type-window";
 import { cn } from "@/lib/utils";
 
 import { useWindowManager } from "@/context/window";

@@ -1,2 +1,4 @@
-// export interface ProjectProps {}
-export type ProjectProps = unknown;
+export interface ProjectProps {
+    returnToProjects: () => void;
+}
+// export type ProjectProps = unknown;

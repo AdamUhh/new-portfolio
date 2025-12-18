@@ -2,9 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import { CV_LINK, GITHUB_LINK } from "@/lib/link-constants";
-import { APP_REGISTRY_NAMES } from "@/lib/registry-constants";
-import { WindowProps } from "@/lib/types";
+import { CV_LINK, GITHUB_LINK } from "@/lib/constants-link";
+import { APP_REGISTRY_NAMES } from "@/lib/constants-registry";
+import { WindowProps } from "@/lib/type-window";
 
 import { useWindowManager } from "@/context/window";
 
@@ -56,6 +56,7 @@ export function TerminalWindow({}: WindowProps) {
                 return "CLEAR_COMMAND";
             case "about":
                 return aboutData;
+            case "skill":
             case "skills":
                 let output = "\n=== SKILLS ===\n\n";
                 Object.entries(skillDict).forEach(([category, skills]) => {
@@ -66,8 +67,10 @@ export function TerminalWindow({}: WindowProps) {
                     output += "\n";
                 });
                 return output;
+            case "experience":
             case "experiences":
                 return experienceData;
+            case "project":
             case "projects":
                 if (args.length === 0) {
                     let projectsList = "=== PROJECTS ===\n\n";

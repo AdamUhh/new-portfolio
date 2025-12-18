@@ -1,10 +1,13 @@
-import { ExternalLinkIcon } from "lucide-react";
+import { ArrowLeftIcon, ExternalLinkIcon } from "lucide-react";
 
-import { HEADLESS_DASHBOARD_LINK } from "@/lib/link-constants";
+import { Button } from "@/shadcn/button";
+
+import { HEADLESS_DASHBOARD_LINK } from "@/lib/constants-link";
 
 import { FallbackImage } from "../FallbackImage";
+import { ProjectProps } from "./projects.type";
 
-export function HeadlessDashboard() {
+export function HeadlessDashboard({ returnToProjects }: ProjectProps) {
     return (
         <div className="flex size-full flex-col overflow-hidden bg-[#191919] text-accent">
             {/* Content */}
@@ -120,18 +123,18 @@ export function HeadlessDashboard() {
                         <p className="leading-relaxed text-accent/80">
                             Structuring everything cleanly in NextJS without
                             creating messy code was another key focus.
-                            Validation schemas we&apos;re suprisingly difficult
-                            to implement cleanly. I had to redo validation
-                            multiple times until I finally found a structure to
-                            follow, creating multiple schemas for client or
-                            server as required; this helped me better understand
-                            data handling and architecture.
+                            Validation schemas were suprisingly difficult to
+                            implement cleanly. I had to redo validation multiple
+                            times until I finally found a structure to follow,
+                            creating multiple schemas for client or server as
+                            required; this helped me better understand data
+                            handling and architecture.
                         </p>
                         <p className="leading-relaxed text-accent/80">
                             Next came the UX and quality-of-life improvements. I
                             focused on making the workflow smooth, from creating
                             collections, models, brands, and tags, to creating
-                            and editing products. Inventory needed filters,
+                            and editing products. The inventory needed filters,
                             quick ways to edit quantities, and other handy
                             features I added along the way.
                         </p>
@@ -141,7 +144,7 @@ export function HeadlessDashboard() {
                             would work together, especially since I wanted the
                             flexibility to save both a draft and a published
                             version simultaneously. Additionally, I used TipTap
-                            as my Markdown, and the base
+                            as my Markdown, and the base.
                         </p>
                     </section>
 
@@ -154,7 +157,8 @@ export function HeadlessDashboard() {
                             One of the more interesting optimizations I worked
                             on was indexing. I hadn’t done much of this before,
                             so I seeded the database, measured query times, and
-                            iterated until I found efficient SQL and indexes.
+                            iterated until I figured out and wrote efficient SQL
+                            and indexes.
                         </p>
 
                         <p className="leading-relaxed text-accent/80">
@@ -179,20 +183,34 @@ export function HeadlessDashboard() {
                     </section>
 
                     {/* Tech Stack */}
-                    {/* <section className="space-y-3"> */}
-                    {/*     <h2 className="text-2xl font-semibold">Tech Stack</h2> */}
-                    {/*     <div className="flex flex-wrap gap-2"> */}
-                    {/*         <span className="rounded border border-[#3e3e42] bg-[#252526] px-3 py-1.5 text-sm"> */}
-                    {/*             SvelteKit */}
-                    {/*         </span> */}
-                    {/*         <span className="rounded border border-[#3e3e42] bg-[#252526] px-3 py-1.5 text-sm"> */}
-                    {/*             TypeScript */}
-                    {/*         </span> */}
-                    {/*         <span className="rounded border border-[#3e3e42] bg-[#252526] px-3 py-1.5 text-sm"> */}
-                    {/*             Tailwind CSS */}
-                    {/*         </span> */}
-                    {/*     </div> */}
-                    {/* </section> */}
+                    <section className="space-y-3">
+                        <h2 className="text-2xl font-semibold">Tech Stack</h2>
+                        <div className="flex flex-wrap gap-2">
+                            <span className="rounded border border-[#3e3e42] bg-[#252526] px-3 py-1.5 text-sm">
+                                NextJS
+                            </span>
+                            <span className="rounded border border-[#3e3e42] bg-[#252526] px-3 py-1.5 text-sm">
+                                TypeScript
+                            </span>
+                            <span className="rounded border border-[#3e3e42] bg-[#252526] px-3 py-1.5 text-sm">
+                                AWS
+                            </span>
+                            <span className="rounded border border-[#3e3e42] bg-[#252526] px-3 py-1.5 text-sm">
+                                Drizzle ORM
+                            </span>
+                            <span className="rounded border border-[#3e3e42] bg-[#252526] px-3 py-1.5 text-sm">
+                                Cockroach DB
+                            </span>
+                        </div>
+                    </section>
+
+                    <Button
+                        onPointerUp={returnToProjects}
+                        className="rounded bg-[#0a84c8] hover:bg-[#0a84c8]/80"
+                    >
+                        <ArrowLeftIcon className="size-4" />
+                        View other projects
+                    </Button>
                 </div>
             </div>
         </div>

@@ -1,5 +1,5 @@
-import { CV_LINK, GITHUB_LINK } from "@/lib/link-constants";
-import { APP_REGISTRY_NAMES } from "@/lib/registry-constants";
+import { CV_LINK, GITHUB_LINK } from "@/lib/constants-link";
+import { APP_REGISTRY_NAMES } from "@/lib/constants-registry";
 
 type TreeLeaf = {
     name: string;

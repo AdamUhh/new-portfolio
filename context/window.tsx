@@ -1,5 +1,6 @@
 "use client";
 
+import { useIsMobile } from "@/hooks/use-mobile";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, {
     createContext,
@@ -11,7 +12,7 @@ import React, {
 } from "react";
 
 import { getApp } from "@/lib/registry";
-import { WindowManagerContextType, WindowMetadata } from "@/lib/types";
+import { WindowManagerContextType, WindowMetadata } from "@/lib/type-window";
 
 const WindowManagerContext = createContext<WindowManagerContextType | null>(
     null
@@ -26,32 +27,16 @@ export function WindowProvider({ children }: { children: React.ReactNode }) {
     const nextWindowId = useRef(1);
     const nextZIndex = useRef(1);
 
-    const getIsMobile = () => {
-        if (typeof window === "undefined") return false;
-        return window.innerWidth <= 768;
-    };
-
-    const [isMobile, setIsMobile] = useState<boolean>(getIsMobile);
-
-    useEffect(() => {
-        const onResize = () => {
-            setIsMobile(window.innerWidth <= 768);
-        };
-
-        window.addEventListener("resize", onResize);
-        return () => window.removeEventListener("resize", onResize);
-    }, []);
+    const isMobile = useIsMobile();
 
     const getMobileSize = useCallback(() => {
         if (typeof window === "undefined") {
             return { width: 0, height: 0 };
         }
 
-        const { innerWidth, innerHeight } = window;
-
         return {
-            width: innerWidth,
-            height: innerHeight * 0.75,
+            width: window.innerWidth,
+            height: window.innerHeight * 0.75,
         };
     }, []);
 

@@ -1,39 +1,13 @@
 // import HolyLoader from "holy-loader";
 import type { Metadata } from "next";
-import {
-    Albert_Sans,
-    Geist,
-    Geist_Mono,
-    Inter,
-    JetBrains_Mono,
-    Schibsted_Grotesk,
-} from "next/font/google";
+import { Albert_Sans, JetBrains_Mono } from "next/font/google";
+import { Suspense } from "react";
 
-import { HOST_LINK } from "@/lib/link-constants";
+import { HOST_LINK } from "@/lib/constants-link";
 
 import { WindowProvider } from "@/context/window";
 
 import "./globals.css";
-
-const geistSans = Geist({
-    variable: "--font-geist-sans",
-    subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-    variable: "--font-geist-mono",
-    subsets: ["latin"],
-});
-
-const inter = Inter({
-    variable: "--font-inter",
-    subsets: ["latin"],
-});
-
-const grotesk = Schibsted_Grotesk({
-    variable: "--font-schibsted-grotesk",
-    subsets: ["latin"],
-});
 
 const JetBrainsMono = JetBrains_Mono({ variable: "--font-jetbrains-mono" });
 
@@ -86,10 +60,12 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body
-                className={`${albertSans.variable} ${JetBrainsMono.variable} ${inter.variable} ${grotesk.variable} ${geistSans.variable} ${geistMono.variable} bg-black antialiased`}
+                className={`${albertSans.variable} ${JetBrainsMono.variable} bg-black antialiased`}
             >
                 {/* <HolyLoader showSpinner={false} /> */}
-                <WindowProvider>{children}</WindowProvider>
+                <Suspense>
+                    <WindowProvider>{children}</WindowProvider>
+                </Suspense>
             </body>
         </html>
     );

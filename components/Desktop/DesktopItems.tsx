@@ -15,8 +15,8 @@ import { PointerEvent, useState } from "react";
 import { Button } from "@/shadcn/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shadcn/tooltip";
 
-import { CV_LINK, GITHUB_LINK } from "@/lib/link-constants";
-import { APP_REGISTRY_NAMES } from "@/lib/registry-constants";
+import { CV_LINK, GITHUB_LINK } from "@/lib/constants-link";
+import { APP_REGISTRY_NAMES } from "@/lib/constants-registry";
 
 import { useWindowManager } from "@/context/window";
 
@@ -63,8 +63,8 @@ function NeedHelp() {
                     Need Help?
                 </Button>
             </TooltipTrigger>
-            <TooltipContent className="dark">
-                <p>This is a joke</p>
+            <TooltipContent className="dark" side="right">
+                <p>This is a joke.</p>
             </TooltipContent>
         </Tooltip>
     );
@@ -89,8 +89,8 @@ export function DesktopItems() {
                         About
                     </Button>
                 </TooltipTrigger>
-                <TooltipContent className="dark">
-                    <p>Browse about me and my skills</p>
+                <TooltipContent className="dark" side="right">
+                    <p>Browse my background and skills.</p>
                 </TooltipContent>
             </Tooltip>
 
@@ -108,7 +108,7 @@ export function DesktopItems() {
                         Projects
                     </Button>
                 </TooltipTrigger>
-                <TooltipContent className="dark">
+                <TooltipContent className="dark" side="right">
                     <p>Browse my projects and featured work.</p>
                 </TooltipContent>
             </Tooltip>
@@ -125,7 +125,7 @@ export function DesktopItems() {
                         </Link>
                     </Button>
                 </TooltipTrigger>
-                <TooltipContent className="dark">
+                <TooltipContent className="dark" side="right">
                     <p>Check out my repos and code activity.</p>
                 </TooltipContent>
             </Tooltip>
@@ -144,7 +144,7 @@ export function DesktopItems() {
                         Terminal
                     </Button>
                 </TooltipTrigger>
-                <TooltipContent className="dark">
+                <TooltipContent className="dark" side="right">
                     <p>Explore a terminal-styled version of my portfolio.</p>
                 </TooltipContent>
             </Tooltip>
@@ -162,7 +162,7 @@ export function DesktopItems() {
                         </Link>
                     </Button>
                 </TooltipTrigger>
-                <TooltipContent className="dark">
+                <TooltipContent className="dark" side="right">
                     <p>View my CV.</p>
                 </TooltipContent>
             </Tooltip>
@@ -181,7 +181,7 @@ export function DesktopItems() {
                         Contact
                     </Button>
                 </TooltipTrigger>
-                <TooltipContent className="dark">
+                <TooltipContent className="dark" side="right">
                     <p>Want to reach me?</p>
                 </TooltipContent>
             </Tooltip>

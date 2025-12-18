@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 
-import { WindowProps } from "@/lib/types";
+import { WindowProps } from "@/lib/type-window";
 
 import { useWindowManager } from "@/context/window";
 
@@ -34,23 +34,31 @@ export function NeedHelpWindow({ windowId }: WindowProps) {
     }, [windowId, closeWindow]);
 
     return (
-        <div className="flex h-full w-full items-center justify-center bg-[#191919] p-8 text-white/95">
+        <div className="relative flex h-full w-full items-center justify-center overflow-hidden bg-[#1a1a1a] p-8 text-white/95">
+            {/* Subtle layered background circles */}
+            <div className="animate-pulse-slow absolute top-1/4 left-1/3 h-56 w-56 rounded-full bg-blue-500/10 blur-3xl"></div>
+            <div className="animate-pulse-slow absolute right-1/4 bottom-1/4 h-64 w-64 rounded-full bg-purple-500/10 blur-3xl"></div>
+
             <div
-                className="text-center transition-all duration-1000 ease-out"
-                style={{
-                    opacity,
-                    transform: `scale(${scale})`,
-                }}
+                className="relative max-w-md text-center transition-all duration-1000 ease-out"
+                style={{ opacity, transform: `scale(${scale})` }}
             >
-                <p className="mb-2 text-3xl font-semibold">🤔</p>
-                <p className="text-lg font-medium">Have you tried</p>
-                <p className="text-2xl font-bold">
+                <p className="mb-1 text-xl font-semibold text-accent/70">
+                    Have you tried…
+                </p>
+                <p className="text-3xl leading-snug font-bold text-white">
                     Talking to someone who gets paid to listen?
                 </p>
-                <p className="mt-2 text-sm italic">
-                    (Therapy. I&apos;m talking about therapy.)
+                <p className="mt-2 text-sm text-accent/70 italic">
+                    (Also known as a Therapist)
                 </p>
-                <p className="mt-4 text-sm">Closing in {countdown}s</p>
+
+                {/* subtle underline highlight */}
+                <div className="animate-pulse-slow bg-accent-400 mx-auto mt-3 h-1 w-16 rounded-full"></div>
+
+                <p className="mt-6 font-mono text-xs text-accent/30">
+                    Closing in {countdown}s
+                </p>
             </div>
         </div>
     );

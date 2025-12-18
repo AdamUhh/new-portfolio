@@ -1,10 +1,13 @@
-import { ExternalLinkIcon } from "lucide-react";
+import { ArrowLeftIcon, ExternalLinkIcon } from "lucide-react";
 
-import { CLOCKHUB_LINK } from "@/lib/link-constants";
+import { Button } from "@/shadcn/button";
+
+import { CLOCKHUB_LINK } from "@/lib/constants-link";
 
 import { FallbackImage } from "../FallbackImage";
+import { ProjectProps } from "./projects.type";
 
-export function ClockHub() {
+export function ClockHub({ returnToProjects }: ProjectProps) {
     return (
         <div className="flex size-full flex-col overflow-hidden bg-[#191919] text-accent">
             {/* Content */}
@@ -50,10 +53,11 @@ export function ClockHub() {
                             I have a second monitor that usually sits idle, and
                             I wanted to put it to use. Rather than just
                             displaying the desktop, I built Clock Hub to make it
-                            actually useful—tracking multiple timezones for
-                            remote work or friend timezones, timing productivity
-                            sessions, and keeping an eye on the time on the side
-                            without cluttering my main workspace.
+                            actually useful. I use it to track different
+                            timezones, remote work or friends, timing
+                            productivity sessions, and keeping an eye on the
+                            time on the side without cluttering my main
+                            workspace.
                         </p>
                     </section>
 
@@ -93,14 +97,22 @@ export function ClockHub() {
                     </section>
 
                     {/* Tech Stack */}
-                    {/* <section className="space-y-3"> */}
-                    {/*     <h2 className="text-2xl font-semibold">Tech Stack</h2> */}
-                    {/*     <div className="flex flex-wrap gap-2"> */}
-                    {/*         <span className="rounded border border-[#3e3e42] bg-[#252526] px-3 py-1.5 text-sm"> */}
-                    {/*             SvelteKit */}
-                    {/*         </span> */}
-                    {/*     </div> */}
-                    {/* </section> */}
+                    <section className="space-y-3">
+                        <h2 className="text-2xl font-semibold">Tech Stack</h2>
+                        <div className="flex flex-wrap gap-2">
+                            <span className="rounded border border-[#3e3e42] bg-[#252526] px-3 py-1.5 text-sm">
+                                SvelteKit
+                            </span>
+                        </div>
+                    </section>
+
+                    <Button
+                        onPointerUp={returnToProjects}
+                        className="rounded bg-[#0a84c8] hover:bg-[#0a84c8]/80"
+                    >
+                        <ArrowLeftIcon className="size-4" />
+                        View other projects
+                    </Button>
                 </div>
             </div>
         </div>

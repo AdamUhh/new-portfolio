@@ -5,6 +5,7 @@ import {
     CheckIcon,
     CopyIcon,
     GithubIcon,
+    LoaderCircleIcon,
     SendIcon,
     UserIcon,
 } from "lucide-react";
@@ -31,8 +32,8 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "@/shadcn/tooltip";
 
 import { Input } from "@/components/ui/input";
 
-import { EMAIL, GITHUB_LINK } from "@/lib/link-constants";
-import { WindowProps } from "@/lib/types";
+import { EMAIL, GITHUB_LINK } from "@/lib/constants-link";
+import { WindowProps } from "@/lib/type-window";
 import { cn } from "@/lib/utils";
 
 import { sendContactEmail } from "./action";
@@ -63,7 +64,7 @@ function ContactInformation() {
                     </div>
                     <h2 className="text-3xl font-semibold">Get in Touch</h2>
                 </div>
-                <p className="mt-2 text-sm text-gray-400">
+                <p className="mt-2 text-sm text-accent/70">
                     I&apos;m always open to discussing new projects, creative
                     ideas, or opportunities to collaborate.
                 </p>
@@ -317,16 +318,20 @@ function ContactForm() {
                     disabled={isSubmitting}
                     variant="secondary"
                     className={cn(
-                        "bg-blue-500! px-8 text-white transition-all hover:bg-blue-600!",
-                        submitSuccess
-                            ? "bg-emerald-600 hover:bg-emerald-600"
-                            : "bg-accent hover:bg-accent/90"
+                        "bg-blue-500 px-8 text-white transition-all hover:bg-blue-600",
+                        submitSuccess && "bg-emerald-600 hover:bg-emerald-600"
                     )}
                 >
                     {isSubmitting ? (
-                        "Sending..."
+                        <span className="flex items-center gap-2">
+                            Sending
+                            <LoaderCircleIcon className="size-4 animate-spin" />
+                        </span>
                     ) : submitSuccess ? (
-                        "Sent!"
+                        <span className="flex items-center gap-2">
+                            Sent!
+                            <CheckIcon className="size-4" />
+                        </span>
                     ) : (
                         <span className="flex items-center gap-2">
                             Send Message
@@ -346,7 +351,7 @@ function ContactForm() {
 export function ContactWindow({}: WindowProps) {
     return (
         <div className="flex size-full flex-col overflow-hidden bg-[#252526] text-white">
-            <div className="flex flex-1 flex-col gap-6 overflow-y-auto p-3 tablet:p-6">
+            <div className="flex flex-1 flex-col gap-6 overflow-y-auto p-3 @tablet-xl:p-6">
                 <ContactInformation />
                 <ContactForm />
             </div>

@@ -517,7 +517,7 @@ export function TriggerFlappyBird() {
         return (
             <div>
                 <FlappyBird />
-                <p className="mt-2 text-sm text-accent/90">
+                <p className="mt-2 text-sm text-accent/80">
                     Tap or press Spacebar to begin
                 </p>
             </div>

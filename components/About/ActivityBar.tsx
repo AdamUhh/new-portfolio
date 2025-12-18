@@ -5,8 +5,8 @@ import {
     mdiConsole,
     mdiDevTo,
     mdiEmailEdit,
-    mdiFileMultipleOutline,
     mdiGithub,
+    mdiHome,
     mdiInformationOutline,
 } from "@mdi/js";
 import Icon from "@mdi/react";
@@ -15,7 +15,7 @@ import Link from "next/link";
 import { Button } from "@/shadcn/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/shadcn/tooltip";
 
-import { APP_REGISTRY_NAMES } from "@/lib/registry-constants";
+import { APP_REGISTRY_NAMES } from "@/lib/constants-registry";
 
 import { useWindowManager } from "@/context/window";
 
@@ -37,11 +37,11 @@ export function ActivityBar({ winId }: { winId: string }) {
                         >
                             <Icon
                                 className="size-6.5 text-accent/70"
-                                path={mdiFileMultipleOutline}
+                                path={mdiHome}
                             />
                         </Button>
                     </TooltipTrigger>
-                    <TooltipContent className="dark">
+                    <TooltipContent className="dark" side="right">
                         Go to Desktop
                     </TooltipContent>
                 </Tooltip>
@@ -58,7 +58,7 @@ export function ActivityBar({ winId }: { winId: string }) {
                             />
                         </Button>
                     </TooltipTrigger>
-                    <TooltipContent className="dark">
+                    <TooltipContent className="dark" side="right">
                         Go to About (you&apos;re here)
                     </TooltipContent>
                 </Tooltip>
@@ -79,7 +79,7 @@ export function ActivityBar({ winId }: { winId: string }) {
                             />
                         </Button>
                     </TooltipTrigger>
-                    <TooltipContent className="dark">
+                    <TooltipContent className="dark" side="right">
                         Check out my projects
                     </TooltipContent>
                 </Tooltip>
@@ -100,7 +100,7 @@ export function ActivityBar({ winId }: { winId: string }) {
                             />
                         </Button>
                     </TooltipTrigger>
-                    <TooltipContent className="dark">
+                    <TooltipContent className="dark" side="right">
                         Want to contact me?
                     </TooltipContent>
                 </Tooltip>
@@ -123,7 +123,9 @@ export function ActivityBar({ winId }: { winId: string }) {
                             </Link>
                         </Button>
                     </TooltipTrigger>
-                    <TooltipContent className="dark">View my CV</TooltipContent>
+                    <TooltipContent className="dark" side="right">
+                        View my CV
+                    </TooltipContent>
                 </Tooltip>
             </div>
             <div>
