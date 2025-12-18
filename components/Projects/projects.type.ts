@@ -1,4 +1,6 @@
+import { PointerEvent } from "react";
+
 export interface ProjectProps {
-    returnToProjects: () => void;
+    returnToProjects: (e: PointerEvent) => void;
 }
 // export type ProjectProps = unknown;
