@@ -18,7 +18,7 @@ interface HistoryItem {
     content: string;
 }
 
-export function TerminalWindow({}: WindowProps) {
+export function TerminalWindow({ windowId }: WindowProps) {
     const [history, setHistory] = useState<HistoryItem[]>([
         {
             type: "output",
@@ -32,7 +32,7 @@ export function TerminalWindow({}: WindowProps) {
     const inputRef = useRef<HTMLInputElement>(null);
     const terminalRef = useRef<HTMLDivElement>(null);
 
-    const { openWindow } = useWindowManager();
+    const { openWindow, closeWindow } = useWindowManager();
 
     useEffect(() => {
         if (terminalRef.current) {
@@ -91,6 +91,9 @@ export function TerminalWindow({}: WindowProps) {
                 }
             case "contact":
                 openWindow(APP_REGISTRY_NAMES.contact);
+                return null;
+            case "exit":
+                closeWindow(windowId);
                 return null;
             case "cv":
                 window.open(CV_LINK, "_blank", "noopener,noreferrer");
